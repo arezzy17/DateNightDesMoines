@@ -18,7 +18,10 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreateUser" />
-        <activity android:name=".CreateNewNight"></activity>
+        <activity
+            android:name=".CreateNewNight"
+            android:label="@string/title_activity_create_new_night"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
