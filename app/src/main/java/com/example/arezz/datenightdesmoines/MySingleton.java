@@ -65,9 +65,19 @@ public class MySingleton {
         getRequestQueue().add(req);
     }
 
-    public JsonObjectRequest GetJsonRequestFromUrl(String url, final String Authorization, final String location, final String term, final IYelpList fragment) {
+    public JsonObjectRequest GetJsonRequestFromUrl(String url, final String Authorization, final String location, final String[] params, final String[] paramVals,  final IYelpList fragment) {
+
+        url=url+"?location="+location+"&";
+        for(int i =0; i < params.length; i++){
+            url = url+params[i]+"="+paramVals[i];
+
+            if(i!=params.length-1){
+                url=url+"&";
+            }
+        }
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url+"?location="+location+"&term="+term, null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
@@ -87,15 +97,6 @@ public class MySingleton {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", Authorization);
-                return params;
-            }
-
-            //Pass Your Parameters here
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("location", location);
-                params.put("term", term);
                 return params;
             }
 

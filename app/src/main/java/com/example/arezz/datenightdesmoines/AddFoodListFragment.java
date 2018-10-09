@@ -32,6 +32,7 @@ public class AddFoodListFragment extends Fragment implements IYelpList{
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter yelpItemAdapter;
     private ArrayList<YelpItem> foodItems;
+
     public AddFoodListFragment() {
         // Required empty public constructor
     }
@@ -48,10 +49,12 @@ public class AddFoodListFragment extends Fragment implements IYelpList{
 
         // Get a RequestQueue
         RequestQueue queue = MySingleton.getInstance(getContext().getApplicationContext()).getRequestQueue();
-        JsonObjectRequest myReq = MySingleton.getInstance(getContext()).GetJsonRequestFromUrl("https://api.yelp.com/v3/businesses/search","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx","Des Moines, IA", "italian", this );
+        String[] params = {"categories", "sort_by"};
+        String[] paramVals = {"restaurants","rating"};
+        JsonObjectRequest myReq = MySingleton.getInstance(getContext()).GetJsonRequestFromUrl("https://api.yelp.com/v3/businesses/search","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx","Des Moines, IA", params, paramVals, this );
         // Add a request (in this example, called stringRequest) to your RequestQueue.
         MySingleton.getInstance(getContext()).addToRequestQueue(myReq);
-        String req = myReq.toString();
+
         layoutManager = new LinearLayoutManager(getContext());
         foodList.setLayoutManager(layoutManager);
 
