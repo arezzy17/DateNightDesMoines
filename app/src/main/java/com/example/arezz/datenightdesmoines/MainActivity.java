@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         TopRatedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
                 startActivity(intent);
             }
         });
