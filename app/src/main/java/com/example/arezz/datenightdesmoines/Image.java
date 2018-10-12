@@ -13,4 +13,12 @@ public class Image {
     public void setId(String id) {
         this.id = id;
     }
+
+    public Bitmap getImageBitmap() {
+        return imageBitmap;
+    }
+
+    public void setImageBitmap(Bitmap imageBitmap) {
+        this.imageBitmap = imageBitmap;
+    }
 }
