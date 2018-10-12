@@ -15,7 +15,7 @@ public class TopRatedActivity extends AppCompatActivity {
     private RecyclerView TopRatedList;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter ratingAdapter;
-    private Button TopRatedButton;
+    private Button CreateNewButton;
     private Button PastNightsButton;
     private Button CurrentNightButton;
 
@@ -25,7 +25,7 @@ public class TopRatedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_top_rated);
 
         TopRatedList = (RecyclerView) findViewById(R.id.top_rated_list);
-        TopRatedButton = (Button) findViewById(R.id.top_rated_rating);
+        CreateNewButton = (Button) findViewById(R.id.create_new_night_rating);
         PastNightsButton = (Button) findViewById(R.id.past_night_rating);
         CurrentNightButton = (Button) findViewById(R.id.current_night_rating);
 
@@ -48,10 +48,10 @@ public class TopRatedActivity extends AppCompatActivity {
         ratingAdapter = new TopRatedAdapter(this, ratings);
         TopRatedList.setAdapter(ratingAdapter);
 
-        TopRatedButton.setOnClickListener(new View.OnClickListener() {
+        CreateNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
