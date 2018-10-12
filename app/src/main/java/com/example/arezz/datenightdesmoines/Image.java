@@ -2,7 +2,10 @@ package com.example.arezz.datenightdesmoines;
 
 import android.graphics.Bitmap;
 
+import io.realm.annotations.PrimaryKey;
+
 public class Image {
+    @PrimaryKey
     private String id;
     private Bitmap imageBitmap;
 
