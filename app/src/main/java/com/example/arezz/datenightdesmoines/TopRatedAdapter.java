@@ -12,39 +12,52 @@ import java.util.ArrayList;
 
 public class TopRatedAdapter extends RecyclerView.Adapter<TopRatedAdapter.TopRatedViewHolder> {
     private Context context;
-    private ArrayList<Rating> ratings;
+    private ArrayList<Rating> topRatings;
+    private RecyclerViewClickListener mListener;
+    // private ArrayList<Night> topRatings;
 
-    public TopRatedAdapter(Context context, ArrayList<Rating> dataset) {
+    public TopRatedAdapter(Context context, ArrayList<Rating> dataset, RecyclerViewClickListener
+                           clickListener) {
         this.context = context;
-        this.ratings = dataset;
+        this.topRatings = dataset;
+        this.mListener = clickListener;
     }
 
-    public static class TopRatedViewHolder extends RecyclerView.ViewHolder {
+    public static class TopRatedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView dateNameView;
         public RatingBar ratingView;
-        public TopRatedViewHolder(View v) {
+        private RecyclerViewClickListener mListener;
+        public TopRatedViewHolder(View v, RecyclerViewClickListener listener) {
             super(v);
             dateNameView = v.findViewById(R.id.date_name_view);
             ratingView = v.findViewById(R.id.rating_view);
+            ratingView.setIsIndicator(true);
+            mListener = listener;
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mListener.onClick(view, getAdapterPosition());
         }
     }
 
     @Override
     public int getItemCount() {
-        return ratings.size();
+        return topRatings.size();
     }
 
     @Override
     public TopRatedAdapter.TopRatedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = (View) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rating_cell, parent, false);
-        TopRatedViewHolder vh = new TopRatedViewHolder(v);
+        TopRatedViewHolder vh = new TopRatedViewHolder(v, mListener);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(TopRatedViewHolder holder, int position) {
-        holder.dateNameView.setText(ratings.get(position).getDateName());
-        holder.ratingView.setRating(ratings.get(position).getRating());
+        holder.dateNameView.setText(topRatings.get(position).getDateName());
+        holder.ratingView.setRating(topRatings.get(position).getRating());
     }
 }

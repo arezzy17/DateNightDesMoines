@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class TopRatedActivity extends AppCompatActivity {
@@ -16,8 +18,8 @@ public class TopRatedActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter ratingAdapter;
     private Button CreateNewButton;
-    private Button PastNightsButton;
-    private Button CurrentNightButton;
+    private Button PlannedNightsButton;
+    private Button PastNightButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +28,8 @@ public class TopRatedActivity extends AppCompatActivity {
 
         TopRatedList = (RecyclerView) findViewById(R.id.top_rated_list);
         CreateNewButton = (Button) findViewById(R.id.create_new_night_rating);
-        PastNightsButton = (Button) findViewById(R.id.past_night_rating);
-        CurrentNightButton = (Button) findViewById(R.id.current_night_rating);
+        PlannedNightsButton = (Button) findViewById(R.id.planned_night_rating);
+        PastNightButton = (Button) findViewById(R.id.past_night_rating);
 
         final ArrayList<Rating> ratings = new ArrayList<Rating>();
 
@@ -42,32 +44,45 @@ public class TopRatedActivity extends AppCompatActivity {
         ratings.add(rating1);
         ratings.add(rating2);
 
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Rating rating = (Rating) ratings.get(position); // change this to night
+                Intent intent = new Intent(view.getContext(), LoginActivity.class); // navigate to confirmation page once it's created
+                intent.putExtra("rating",(Serializable)rating); //change this to night
+                startActivity(intent);
+            }
+        };
+
         layoutManager = new LinearLayoutManager(this);
         TopRatedList.setLayoutManager(layoutManager);
 
-        ratingAdapter = new TopRatedAdapter(this, ratings);
+        ratingAdapter = new TopRatedAdapter(this, ratings, listener);
         TopRatedList.setAdapter(ratingAdapter);
 
         CreateNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                intent.putExtra("navigate_to", "CreateNewNight");
                 startActivity(intent);
             }
         });
 
-        PastNightsButton.setOnClickListener(new View.OnClickListener() {
+        PlannedNightsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                // intent.putExtra("navigate_to", "PlannedNights");
                 startActivity(intent);
             }
         });
 
-        CurrentNightButton.setOnClickListener(new View.OnClickListener() {
+        PastNightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                // intent.putExtra("navigate_to", "PastNights");
                 startActivity(intent);
             }
         });

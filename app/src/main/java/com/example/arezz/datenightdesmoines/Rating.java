@@ -1,6 +1,8 @@
 package com.example.arezz.datenightdesmoines;
 
-public class Rating {
+import java.io.Serializable;
+
+public class Rating implements Serializable {
     private String dateName;
     private int rating;
 
