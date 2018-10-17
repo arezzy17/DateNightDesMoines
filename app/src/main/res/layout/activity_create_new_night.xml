@@ -29,15 +29,30 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_marginBottom="75dp"
+        android:layout_marginTop="75dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@android:color/background_light"
-        app:srcCompat="@android:drawable/ic_input_add" />
+    </android.support.v4.view.ViewPager>
+
+    <Button
+        android:id="@+id/create_new_add_button"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:background="@android:color/holo_green_dark"
+        android:text="Add"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/create_new_next_button"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="210dp"
+        android:layout_weight="1"
+        android:text="View Night" />
 
 </android.support.design.widget.CoordinatorLayout>
