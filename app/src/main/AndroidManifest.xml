@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.arezz.datenightdesmoines">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,8 +20,12 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreateUser" />
-        <activity android:name=".CreateNewNight" />
         <activity android:name=".ConfirmNightActivity"></activity>
+        <activity
+            android:name=".CreateNewNight"
+            android:label="@string/title_activity_create_new_night"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ReviewActivity"></activity>
     </application>
 
 </manifest>
