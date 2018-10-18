@@ -5,18 +5,22 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
+import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.PrimaryKey;
 
 public class Night extends RealmObject {
+
     @PrimaryKey
     private String Id;
     private String Username;
     private String dateName;
     private Date date;
-    private RealmList<RealmString> eventIds;
-    private RealmList<RealmString> imageIds;
     private int rating;
 
+
+    @LinkingObjects("night")
+    public final RealmResults<Event> events = null;
 
     public String getId() {
         return Id;
@@ -50,21 +54,6 @@ public class Night extends RealmObject {
         this.date = date;
     }
 
-    public RealmList<RealmString> getEventIds() {
-        return eventIds;
-    }
-
-    public void setEventIds(RealmList<RealmString> eventIds) {
-        this.eventIds = eventIds;
-    }
-
-    public RealmList<RealmString> getImageIds() {
-        return imageIds;
-    }
-
-    public void setImageIds(RealmList<RealmString> imageIds) {
-        this.imageIds = imageIds;
-    }
 
     public int getRating() {
         return rating;
@@ -73,4 +62,9 @@ public class Night extends RealmObject {
     public void setRating(int rating) {
         this.rating = rating;
     }
+    public RealmResults<Event> getEvents() {
+        return events;
+
+    }
+
 }
