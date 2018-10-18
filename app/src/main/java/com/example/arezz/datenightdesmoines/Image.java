@@ -7,6 +7,7 @@ import io.realm.annotations.PrimaryKey;
 public class Image {
     @PrimaryKey
     private String id;
+    private String nightId;
     private Bitmap imageBitmap;
 
     public String getId() {
@@ -23,5 +24,13 @@ public class Image {
 
     public void setImageBitmap(Bitmap imageBitmap) {
         this.imageBitmap = imageBitmap;
+    }
+
+    public String getNightId() {
+        return nightId;
+    }
+
+    public void setNightId(String nightId) {
+        this.nightId = nightId;
     }
 }
