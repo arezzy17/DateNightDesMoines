@@ -20,11 +20,12 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreateUser" />
+        <activity android:name=".TopRatedActivity" />
         <activity
             android:name=".CreateNewNight"
             android:label="@string/title_activity_create_new_night"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ReviewActivity"></activity>
+        <activity android:name=".ReviewActivity" />
     </application>
 
 </manifest>
