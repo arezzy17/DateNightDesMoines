@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 public class TopRatedAdapter extends RecyclerView.Adapter<TopRatedAdapter.TopRatedViewHolder> {
     private Context context;
-    private ArrayList<Rating> topRatings;
+    private ArrayList<Night> topRatings;
     private RecyclerViewClickListener mListener;
     // private ArrayList<Night> topRatings;
 
-    public TopRatedAdapter(Context context, ArrayList<Rating> dataset, RecyclerViewClickListener
+    public TopRatedAdapter(Context context, ArrayList<Night> dataset, RecyclerViewClickListener
                            clickListener) {
         this.context = context;
         this.topRatings = dataset;

@@ -1,5 +1,6 @@
 package com.example.arezz.datenightdesmoines;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.realm.Realm;
@@ -9,7 +10,7 @@ import io.realm.RealmResults;
 import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.PrimaryKey;
 
-public class Night extends RealmObject {
+public class Night extends RealmObject implements Serializable {
 
     @PrimaryKey
     private String Id;

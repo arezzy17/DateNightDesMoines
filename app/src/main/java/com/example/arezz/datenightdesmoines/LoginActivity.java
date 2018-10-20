@@ -38,6 +38,11 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (navigateTo.equals("PastNights")) {
                     // Intent intent = new Intent(getBaseContext(), PastNights.class);
                     // startActivity(intent);
+                } else if (navigateTo.equals("Top Rated/Confirm")) {
+                    // Intent intent = new Intent(getBaseContext(), Confirm.class);
+                    // String night = getIntent().getStringExtra("night);
+                    // intent.putExtra("night", night);
+                    // startActivity(intent);
                 }
             }
         });

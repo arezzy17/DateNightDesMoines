@@ -31,13 +31,13 @@ public class TopRatedActivity extends AppCompatActivity {
         PlannedNightsButton = (Button) findViewById(R.id.planned_night_rating);
         PastNightButton = (Button) findViewById(R.id.past_night_rating);
 
-        final ArrayList<Rating> ratings = new ArrayList<Rating>();
+        final ArrayList<Night> ratings = new ArrayList<Night>();
 
-        Rating rating1 = new Rating();
+        Night rating1 = new Night();
         rating1.setDateName("Test 1");
         rating1.setRating(4);
 
-        Rating rating2 = new Rating();
+        Night rating2 = new Night();
         rating2.setDateName("Test 2");
         rating2.setRating(5);
 
@@ -47,9 +47,10 @@ public class TopRatedActivity extends AppCompatActivity {
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Rating rating = (Rating) ratings.get(position); // change this to night
+                Night rating = (Night) ratings.get(position); // change this to night
                 Intent intent = new Intent(view.getContext(), LoginActivity.class); // navigate to confirmation page once it's created
                 intent.putExtra("rating",(Serializable)rating); //change this to night
+                intent.putExtra("navigate_to", "Top Rated/Confirm");
                 startActivity(intent);
             }
         };
