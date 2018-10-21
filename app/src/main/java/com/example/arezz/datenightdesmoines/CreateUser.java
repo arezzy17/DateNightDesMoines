@@ -23,12 +23,22 @@ public class CreateUser extends AppCompatActivity {
         emailField = (EditText) findViewById(R.id.email_field_user);
         passwordField = (EditText) findViewById(R.id.password_user);
         nicknameField = (EditText) findViewById(R.id.nickname_user);
+        final String navigateTo = getIntent().getStringExtra("navigate_to");
 
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
-                startActivity(intent);
+
+                if(navigateTo.equals("CreateNewNight")) {
+                    Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
+                    startActivity(intent);
+                } else if(navigateTo.equals("PlannedNights")){
+                    // Intent intent = new Intent(getBaseContext(), PlannedNights.class);
+                    // startActivity(intent);
+                } else if (navigateTo.equals("PastNights")) {
+                    // Intent intent = new Intent(getBaseContext(), PastNights.class);
+                    // startActivity(intent);
+                }
             }
         });
     }

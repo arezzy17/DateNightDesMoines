@@ -25,7 +25,10 @@
             android:label="@string/title_activity_create_new_night"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ReviewActivity" />
+<<<<<<< HEAD
         <activity android:name=".PastNightActivity"></activity>
+=======
+>>>>>>> 87f2592933fc430ba09614f9078b7308d4278657
     </application>
 
 </manifest>

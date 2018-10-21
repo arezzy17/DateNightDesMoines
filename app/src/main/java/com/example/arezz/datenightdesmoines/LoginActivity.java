@@ -24,11 +24,21 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton = (Button) findViewById(R.id.login_button_login);
         NewUserButton = (Button) findViewById(R.id.newuser_button_login);
 
+        final String navigateTo = getIntent().getStringExtra("navigate_to");
+
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
-                startActivity(intent);
+                if(navigateTo.equals("CreateNewNight")) {
+                    Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
+                    startActivity(intent);
+                } else if(navigateTo.equals("PlannedNights")){
+                    // Intent intent = new Intent(getBaseContext(), PlannedNights.class);
+                    // startActivity(intent);
+                } else if (navigateTo.equals("PastNights")) {
+                    // Intent intent = new Intent(getBaseContext(), PastNights.class);
+                    // startActivity(intent);
+                }
             }
         });
 
@@ -36,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), CreateUser.class);
+
+                intent.putExtra("navigate_to", navigateTo);
                 startActivity(intent);
             }
         });

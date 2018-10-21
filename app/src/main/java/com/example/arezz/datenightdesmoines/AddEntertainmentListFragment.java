@@ -1,6 +1,7 @@
 package com.example.arezz.datenightdesmoines;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,7 +55,7 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
         entertainmentList.setLayoutManager(layoutManager);
 
 
-        yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems);
+        yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems,new Dialog(this.getContext()));
         entertainmentList.setAdapter(yelpItemAdapter);
 
         return view;
@@ -71,14 +72,14 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
         entertainmentItems = new ArrayList<YelpItem>();
         for(int i = 0; i<businesses.length();i++){
             try{
-                entertainmentItems.add(new YelpItem(businesses.getJSONObject(i).getString("name"),businesses.getJSONObject(i).getDouble("rating")+""));
+                entertainmentItems.add(YelpItem.GetYelpItemFromBusinessJSON(businesses.getJSONObject(i)));
             }
             catch (Exception ex){
 
             }
         }
 
-        yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems);
+        yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems,new Dialog(this.getContext()));
         entertainmentList.setAdapter(yelpItemAdapter);
     }
 }

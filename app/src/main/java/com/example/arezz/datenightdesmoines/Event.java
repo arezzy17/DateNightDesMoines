@@ -1,22 +1,24 @@
 package com.example.arezz.datenightdesmoines;
 import java.util.Date;
 
-public class Event {
+import io.realm.RealmObject;
+
+public class Event extends RealmObject {
+
     public Date startTime;
     public Date endTime;
     public String eventType;
     public String nightName;
-    public String nightID;
+    private Night night;
     public String yelpID;
 
-    public String getNightID() {
-        return nightID;
+    public Night getNight() {
+        return night;
     }
 
-    public void setNightID(String nightID) {
-        this.nightID = nightID;
+    public void setNight(Night night) {
+        this.night = night;
     }
-
     public String getYelpID() {
         return yelpID;
     }
