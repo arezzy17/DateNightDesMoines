@@ -29,6 +29,7 @@
 <<<<<<< HEAD
         <activity android:name=".PastNightActivity"></activity>
 =======
+        <activity android:name=".PlannedNight"></activity>
 >>>>>>> db92dfbf142a893afdcf1efe4d6eaa36862e0e73
     </application>
 
