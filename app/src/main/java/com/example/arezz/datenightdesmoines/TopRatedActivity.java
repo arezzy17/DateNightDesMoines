@@ -73,7 +73,7 @@ public class TopRatedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                // intent.putExtra("navigate_to", "PlannedNights");
+                // intent.putExtra("navigate_to", "PlannedNight");
                 startActivity(intent);
             }
         });
@@ -82,7 +82,7 @@ public class TopRatedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                // intent.putExtra("navigate_to", "PastNights");
+                intent.putExtra("navigate_to", "PastNights");
                 startActivity(intent);
             }
         });
