@@ -8,7 +8,7 @@ public class Event extends RealmObject {
     public Date startTime;
     public Date endTime;
     public String eventType;
-    public String nightName;
+    public String eventName;
     private Night night;
     public String yelpID;
 
@@ -51,11 +51,11 @@ public class Event extends RealmObject {
         this.eventType = eventType;
     }
 
-    public String getNightName() {
-        return nightName;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setNightName(String nightName) {
-        this.nightName = nightName;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 }
