@@ -52,7 +52,7 @@ public class PastNightAdapter extends RecyclerView.Adapter<PastNightAdapter.Past
     @Override
     public PastNightAdapter.PastNightsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = (View) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.past_cell, parent, false);
+                .inflate(R.layout.past_night_cell, parent, false);
         PastNightAdapter.PastNightsViewHolder vh = new PastNightAdapter.PastNightsViewHolder(v, mListener);
         return vh;
     }

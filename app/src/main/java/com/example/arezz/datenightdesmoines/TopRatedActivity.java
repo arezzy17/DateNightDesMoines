@@ -19,7 +19,7 @@ import io.realm.RealmResults;
 
 public class TopRatedActivity extends AppCompatActivity {
 
-    private RecyclerView TopRatedList;
+    private RecyclerView topRatedList;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter ratingAdapter;
     private Button CreateNewButton;
@@ -31,7 +31,7 @@ public class TopRatedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_rated);
 
-        TopRatedList = (RecyclerView) findViewById(R.id.top_rated_list);
+        topRatedList = (RecyclerView) findViewById(R.id.top_rated_list);
         CreateNewButton = (Button) findViewById(R.id.create_new_night_rating);
         PlannedNightsButton = (Button) findViewById(R.id.planned_night_rating);
         PastNightButton = (Button) findViewById(R.id.past_night_rating);
@@ -54,10 +54,10 @@ public class TopRatedActivity extends AppCompatActivity {
         };
 
         layoutManager = new LinearLayoutManager(this);
-        TopRatedList.setLayoutManager(layoutManager);
+        topRatedList.setLayoutManager(layoutManager);
 
         ratingAdapter = new TopRatedAdapter(this, topRatedNights, listener);
-        TopRatedList.setAdapter(ratingAdapter);
+        topRatedList.setAdapter(ratingAdapter);
 
         CreateNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
