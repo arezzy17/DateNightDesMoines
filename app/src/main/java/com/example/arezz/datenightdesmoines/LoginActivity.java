@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         NewUserButton = (Button) findViewById(R.id.newuser_button_login);
 
         final String navigateTo = getIntent().getStringExtra("navigate_to");
+        final String selectedRating = getIntent().getStringExtra("rating");
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +39,10 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (navigateTo.equals("PastNights")) {
                     Intent intent = new Intent(getBaseContext(), PastNightActivity.class);
                     startActivity(intent);
+                } else if (navigateTo.equals("Top Rated")) {
+                    Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
+                    intent.putExtra("rating", selectedRating);
+                    startActivity(intent);
                 }
             }
         });
@@ -46,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), CreateUser.class);
-
+                intent.putExtra("rating", selectedRating);
                 intent.putExtra("navigate_to", navigateTo);
                 startActivity(intent);
             }
