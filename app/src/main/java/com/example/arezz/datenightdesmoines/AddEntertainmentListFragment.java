@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -43,6 +44,9 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
 
         entertainmentItems = new ArrayList<YelpItem>();
         entertainmentList = (RecyclerView) view.findViewById(R.id.entertainment_list);
+        ((Button)this.getActivity().findViewById(R.id.create_new_add_button)).setVisibility(View.INVISIBLE);
+        CreateNewFragmentHelpers.clearColoredElements(entertainmentItems, entertainmentList);
+
 
         RequestQueue queue = MySingleton.getInstance(getContext().getApplicationContext()).getRequestQueue();
         String[] params = {"categories", "sort_by"};
@@ -55,12 +59,7 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
         layoutManager = new LinearLayoutManager(getContext());
         entertainmentList.setLayoutManager(layoutManager);
 
-        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
-            }
-        };
+        RecyclerViewClickListener listener = CreateNewFragmentHelpers.GetFragmentListener(entertainmentItems, entertainmentList, this);
 
         yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems,new Dialog(this.getContext()), listener);
         entertainmentList.setAdapter(yelpItemAdapter);
@@ -85,12 +84,8 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
 
             }
         }
-        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
-            }
-        };
+        RecyclerViewClickListener listener = CreateNewFragmentHelpers.GetFragmentListener(entertainmentItems, entertainmentList, this);
+
         yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems,new Dialog(this.getContext()), listener);
         entertainmentList.setAdapter(yelpItemAdapter);
     }

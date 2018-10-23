@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -56,6 +57,9 @@ public class AddDrinksListFragment extends Fragment implements IYelpList {
         drinksList = (RecyclerView) view.findViewById(R.id.drinks_list);
         searchBar = (EditText) view.findViewById(R.id.drinks_search_bar);
         searchButton = (ImageButton) view.findViewById(R.id.search_button_drinks);
+        ((Button)this.getActivity().findViewById(R.id.create_new_add_button)).setVisibility(View.INVISIBLE);
+
+        CreateNewFragmentHelpers.clearColoredElements(drinksItems, drinksList);
 
         RequestQueue queue = MySingleton.getInstance(getContext().getApplicationContext()).getRequestQueue();
         String[] params = {"categories", "sort_by"};
@@ -78,12 +82,7 @@ public class AddDrinksListFragment extends Fragment implements IYelpList {
         layoutManager = new LinearLayoutManager(getContext());
         drinksList.setLayoutManager(layoutManager);
 
-        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
-            }
-        };
+        RecyclerViewClickListener listener = CreateNewFragmentHelpers.GetFragmentListener(drinksItems, drinksList, (android.support.v4.app.Fragment)this);
 
 
         yelpItemAdapter = new YelpItemAdapter(getContext(), drinksItems, new Dialog(this.getContext()), listener);
@@ -108,12 +107,8 @@ public class AddDrinksListFragment extends Fragment implements IYelpList {
 
             }
         }
-        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
-            }
-        };
+        RecyclerViewClickListener listener = CreateNewFragmentHelpers.GetFragmentListener(drinksItems, drinksList, (android.support.v4.app.Fragment)this);
+
         yelpItemAdapter = new YelpItemAdapter(getContext(), drinksItems, new Dialog(this.getContext()), listener);
         drinksList.setAdapter(yelpItemAdapter);
     }
