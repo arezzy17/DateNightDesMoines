@@ -30,6 +30,8 @@
         <activity android:name=".PastNightActivity"></activity>
         <activity android:name=".PlannedNight"></activity>
 =======
+        <activity android:name=".PlannedNight" />
+        <activity android:name=".CurrentNight"></activity>
 >>>>>>> 946240219dff1b02136568b9308d555f51ef80f7
     </application>
 
