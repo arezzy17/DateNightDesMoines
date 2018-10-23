@@ -62,9 +62,7 @@ public class Night extends RealmObject {
     public void setRating(int rating) {
         this.rating = rating;
     }
-    public RealmResults<Event> getEvents() {
-        return events;
 
-    }
+    public RealmResults<Event> getEvents() { return events; }
 
 }
