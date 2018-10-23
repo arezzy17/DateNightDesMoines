@@ -12,24 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".MainActivity" />
-=======
         <activity android:name=".MainActivity"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreateUser" />
->>>>>>> d6e459a59682ce8c039fee29c3512a17465c682f
         <activity android:name=".TopRatedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".CreateUser" />
-=======
->>>>>>> d6e459a59682ce8c039fee29c3512a17465c682f
         <activity
             android:name=".CreateNewNight"
             android:label="@string/title_activity_create_new_night"
