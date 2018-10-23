@@ -43,7 +43,7 @@
         android:layout_weight="1"
         android:background="@android:color/holo_green_dark"
         android:text="Add"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/create_new_next_button"

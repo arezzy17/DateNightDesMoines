@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -77,7 +78,15 @@ public class AddDrinksListFragment extends Fragment implements IYelpList {
         layoutManager = new LinearLayoutManager(getContext());
         drinksList.setLayoutManager(layoutManager);
 
-        yelpItemAdapter = new YelpItemAdapter(getContext(), drinksItems, new Dialog(this.getContext()));
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+
+        yelpItemAdapter = new YelpItemAdapter(getContext(), drinksItems, new Dialog(this.getContext()), listener);
         drinksList.setAdapter(yelpItemAdapter);
 
         return view;
@@ -99,8 +108,13 @@ public class AddDrinksListFragment extends Fragment implements IYelpList {
 
             }
         }
-
-        yelpItemAdapter = new YelpItemAdapter(getContext(), drinksItems, new Dialog(this.getContext()));
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getContext(), "Position " + position, Toast.LENGTH_SHORT).show();
+            }
+        };
+        yelpItemAdapter = new YelpItemAdapter(getContext(), drinksItems, new Dialog(this.getContext()), listener);
         drinksList.setAdapter(yelpItemAdapter);
     }
 

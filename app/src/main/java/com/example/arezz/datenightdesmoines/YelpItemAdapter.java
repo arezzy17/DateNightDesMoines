@@ -25,23 +25,31 @@ public class YelpItemAdapter extends RecyclerView.Adapter<YelpItemAdapter.YelpIt
     private Context context;
     private ArrayList<YelpItem> yelpItems;
     Dialog popup;
+    private RecyclerViewClickListener mListener;
 
-    public YelpItemAdapter(Context context, ArrayList<YelpItem> dataSet, Dialog p) {
+    public YelpItemAdapter(Context context, ArrayList<YelpItem> dataSet, Dialog p, RecyclerViewClickListener r) {
         this.context = context;
         this.yelpItems = dataSet;
         this.popup = p;
+        mListener = r;
     }
 
-    public static class YelpItemViewHolder extends RecyclerView.ViewHolder{
+    public static class YelpItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView nameView;
         public TextView starsView;
         public Button openYelpDetails;
+        private RecyclerViewClickListener mListener;
 
-        public YelpItemViewHolder(View v) {
+        public YelpItemViewHolder(View v, RecyclerViewClickListener r) {
             super(v);
             nameView = v.findViewById(R.id.yelp_name_view);
             starsView = v.findViewById(R.id.yelp_stars_view);
             openYelpDetails = v.findViewById(R.id.open_yelp_details);
+            mListener = r;
+        }
+        @Override
+        public void onClick(View view) {
+            mListener.onClick(view, getAdapterPosition());
         }
 
 
@@ -55,7 +63,7 @@ public class YelpItemAdapter extends RecyclerView.Adapter<YelpItemAdapter.YelpIt
         // create a new view
         View v = (View) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.yelp_item_cell, parent, false);
-        YelpItemViewHolder vh = new YelpItemViewHolder(v);
+        YelpItemViewHolder vh = new YelpItemViewHolder(v, mListener);
         return vh;
     }
 

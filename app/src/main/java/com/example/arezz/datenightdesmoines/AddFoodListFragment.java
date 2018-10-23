@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -60,7 +62,14 @@ public class AddFoodListFragment extends Fragment implements IYelpList{
         foodList.setLayoutManager(layoutManager);
 
 
-        yelpItemAdapter = new YelpItemAdapter(getContext(), foodItems,new Dialog(this.getContext()));
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                ((Button)view.findViewById(R.id.create_new_add_button)).setVisibility(View.VISIBLE);
+            }
+        };
+
+        yelpItemAdapter = new YelpItemAdapter(getContext(), foodItems,new Dialog(this.getContext()), listener);
         foodList.setAdapter(yelpItemAdapter);
 
         return view;
@@ -84,7 +93,14 @@ public class AddFoodListFragment extends Fragment implements IYelpList{
             }
         }
 
-        yelpItemAdapter = new YelpItemAdapter(getContext(), foodItems,new Dialog(this.getContext()));
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                ((Button)view.findViewById(R.id.create_new_add_button)).setVisibility(View.VISIBLE);
+            }
+        };
+
+        yelpItemAdapter = new YelpItemAdapter(getContext(), foodItems,new Dialog(this.getContext()),listener);
         foodList.setAdapter(yelpItemAdapter);
     }
 
