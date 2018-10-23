@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.util.Date;
 
 import java.io.Serializable;
@@ -16,6 +20,7 @@ public class PlannedNight extends AppCompatActivity {
     private RecyclerView planned_night_list;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter plannedAdapter;
+    private TextView titleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class PlannedNight extends AppCompatActivity {
         setContentView(R.layout.activity_planned_night);
 
         planned_night_list = (RecyclerView) findViewById(R.id.list_plannedNights);
+        titleView = (TextView) findViewById(R.id.title_view_planned);
 
         final ArrayList<Night> nights = new ArrayList<Night>();
 

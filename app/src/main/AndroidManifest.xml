@@ -25,7 +25,8 @@
             android:label="@string/title_activity_create_new_night"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ReviewActivity" />
-        <activity android:name=".PlannedNight"></activity>
+        <activity android:name=".PlannedNight" />
+        <activity android:name=".CurrentNight"></activity>
     </application>
 
 </manifest>
