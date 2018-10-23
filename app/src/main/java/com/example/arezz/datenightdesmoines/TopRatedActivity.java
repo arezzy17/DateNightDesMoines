@@ -47,7 +47,7 @@ public class TopRatedActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 Night rating = (Night) topRatedNights.get(position);
                 Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                intent.putExtra("rating",(Serializable)topRatedNights);
+                intent.putExtra("rating",(Serializable)rating);
                 startActivity(intent);
             }
         };
