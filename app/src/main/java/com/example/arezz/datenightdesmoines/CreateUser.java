@@ -33,8 +33,8 @@ public class CreateUser extends AppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
                     startActivity(intent);
                 } else if(navigateTo.equals("PlannedNights")){
-                    // Intent intent = new Intent(getBaseContext(), PlannedNight.class);
-                    // startActivity(intent);
+                     Intent intent = new Intent(getBaseContext(), PlannedNight.class);
+                     startActivity(intent);
                 } else if (navigateTo.equals("PastNights")) {
                     Intent intent = new Intent(getBaseContext(), PastNightActivity.class);
                     startActivity(intent);

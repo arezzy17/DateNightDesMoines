@@ -10,13 +10,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import io.realm.RealmObjectChangeListener;
+import io.realm.RealmResults;
+
 public class TopRatedAdapter extends RecyclerView.Adapter<TopRatedAdapter.TopRatedViewHolder> {
     private Context context;
-    private ArrayList<Rating> topRatings;
+    private RealmResults<Night> topRatings;
     private RecyclerViewClickListener mListener;
     // private ArrayList<Night> topRatings;
 
-    public TopRatedAdapter(Context context, ArrayList<Rating> dataset, RecyclerViewClickListener
+    public TopRatedAdapter(Context context, RealmResults<Night> dataset, RecyclerViewClickListener
                            clickListener) {
         this.context = context;
         this.topRatings = dataset;

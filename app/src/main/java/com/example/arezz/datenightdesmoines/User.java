@@ -2,7 +2,9 @@ package com.example.arezz.datenightdesmoines;
 
 import android.graphics.Bitmap;
 
-public class User {
+import io.realm.RealmObject;
+
+public class User extends RealmObject {
     private String username;
     private String password;
     private Bitmap profilePic;
