@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(navigateTo.equals("CreateNewNight")) {
                     Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
                     startActivity(intent);
-                } else if(navigateTo.equals("PlannedNights")){
+                } else if(navigateTo.equals("PlannedNight")){
                      Intent intent = new Intent(getBaseContext(), PlannedNight.class);
                      startActivity(intent);
                 } else if (navigateTo.equals("PastNights")) {
