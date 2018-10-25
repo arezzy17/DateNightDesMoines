@@ -5,7 +5,9 @@ import org.json.JSONObject;
 import java.sql.Time;
 import java.util.Date;
 
-public class YelpItem {
+import io.realm.RealmObject;
+
+public class YelpItem extends RealmObject {
 
 
     private String name;

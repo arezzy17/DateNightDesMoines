@@ -2,13 +2,14 @@ package com.example.arezz.datenightdesmoines;
 
 import android.graphics.Bitmap;
 
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Image {
+public class Image extends RealmObject {
     @PrimaryKey
     private String id;
     private String nightId;
-    private Bitmap imageBitmap;
+    private byte[] imageBitmap;
 
     public String getId() {
         return id;
@@ -18,11 +19,11 @@ public class Image {
         this.id = id;
     }
 
-    public Bitmap getImageBitmap() {
+    public byte[] getImageBitmap() {
         return imageBitmap;
     }
 
-    public void setImageBitmap(Bitmap imageBitmap) {
+    public void setImageBitmap(byte[] imageBitmap) {
         this.imageBitmap = imageBitmap;
     }
 

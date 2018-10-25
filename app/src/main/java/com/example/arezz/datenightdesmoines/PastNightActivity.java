@@ -28,9 +28,6 @@ public class PastNightActivity extends AppCompatActivity {
 
         Realm realm = Realm.getDefaultInstance();
         final RealmResults<Night> pastNights = realm.where(Night.class).findAll();
-        if(pastNights.size() == 0) {
-            populatePlannedNights();
-        }
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
@@ -48,18 +45,5 @@ public class PastNightActivity extends AppCompatActivity {
 
         pastNightsAdapter = new TopRatedAdapter(this, pastNights, listener);
         pastNightsList.setAdapter(pastNightsAdapter);
-    }
-
-    public void populatePlannedNights() {
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                Night night = new Night();
-                night.setDateName("Test");
-                night.setRating(4);
-                realm.copyToRealmOrUpdate(night);
-            }
-        });
     }
 }
