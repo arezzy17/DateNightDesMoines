@@ -15,13 +15,14 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/colorPrimaryDark" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -41,7 +42,7 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="10dp"
         android:layout_weight="1"
-        android:background="@android:color/holo_green_dark"
+        android:background="@color/colorPrimary"
         android:text="Add"
         android:visibility="invisible" />
 
@@ -52,6 +53,7 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="210dp"
         android:layout_weight="1"
+        android:background="@color/colorPrimary"
         android:text="View Night" />
 
 </android.support.design.widget.CoordinatorLayout>
