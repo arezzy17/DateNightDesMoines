@@ -29,6 +29,10 @@
         <activity android:name=".PastNightActivity"></activity>
         <activity android:name=".PlannedNight"></activity>
         <activity android:name=".CurrentNight"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
