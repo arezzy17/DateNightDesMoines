@@ -2,6 +2,7 @@ package com.example.arezz.datenightdesmoines;
 
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +50,9 @@ public class AddFoodListFragment extends Fragment implements IYelpList{
 
         foodItems = new ArrayList<YelpItem>();
         foodList = (RecyclerView) view.findViewById(R.id.food_list);
+        ((Button)this.getActivity().findViewById(R.id.create_new_add_button)).setVisibility(View.INVISIBLE);
+
+        CreateNewFragmentHelpers.clearColoredElements(foodItems, foodList);
 
         // Get a RequestQueue
         RequestQueue queue = MySingleton.getInstance(getContext().getApplicationContext()).getRequestQueue();
@@ -62,12 +66,7 @@ public class AddFoodListFragment extends Fragment implements IYelpList{
         foodList.setLayoutManager(layoutManager);
 
 
-        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                ((Button)view.findViewById(R.id.create_new_add_button)).setVisibility(View.VISIBLE);
-            }
-        };
+        RecyclerViewClickListener listener = CreateNewFragmentHelpers.GetFragmentListener(foodItems, foodList, this);
 
         yelpItemAdapter = new YelpItemAdapter(getContext(), foodItems,new Dialog(this.getContext()), listener);
         foodList.setAdapter(yelpItemAdapter);
@@ -93,12 +92,7 @@ public class AddFoodListFragment extends Fragment implements IYelpList{
             }
         }
 
-        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                ((Button)view.findViewById(R.id.create_new_add_button)).setVisibility(View.VISIBLE);
-            }
-        };
+        RecyclerViewClickListener listener = CreateNewFragmentHelpers.GetFragmentListener(foodItems, foodList, this);
 
         yelpItemAdapter = new YelpItemAdapter(getContext(), foodItems,new Dialog(this.getContext()),listener);
         foodList.setAdapter(yelpItemAdapter);

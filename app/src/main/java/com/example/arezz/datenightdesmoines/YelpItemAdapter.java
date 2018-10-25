@@ -46,6 +46,7 @@ public class YelpItemAdapter extends RecyclerView.Adapter<YelpItemAdapter.YelpIt
             starsView = v.findViewById(R.id.yelp_stars_view);
             openYelpDetails = v.findViewById(R.id.open_yelp_details);
             mListener = r;
+            v.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {
