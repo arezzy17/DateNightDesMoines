@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/top_rated_details_popup"
     android:layout_width="350dp"
     android:layout_height="475dp"
     android:layout_gravity="center"
@@ -16,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <ImageView
         android:id="@+id/date_picture"
@@ -48,10 +47,11 @@
         android:layout_height="58dp"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/dinner_time_list"
+        <LinearLayout
+            android:id="@+id/test_layout"
             android:layout_width="match_parent"
-            android:layout_height="58dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -84,11 +84,11 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/add_button"
+            android:id="@+id/select_button"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_weight="1"
-            android:text="Add" />
+            android:text="Select" />
 
         <Button
             android:id="@+id/close_button"

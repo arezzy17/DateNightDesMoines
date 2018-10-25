@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -157,14 +158,19 @@ public class TopRatedActivity extends AppCompatActivity {
         RatingBar dateRating = (RatingBar) popup.findViewById(R.id.date_rating);
         dateRating.setIsIndicator(true);
         dateRating.setRating(rating.getRating());
-
-        timeList = (RecyclerView) popup.findViewById(R.id.dinner_time_list);
-
-        dinnerTimeLmanager = new LinearLayoutManager(this);
-        timeList.setLayoutManager(dinnerTimeLmanager);
-
-        dinnerTimeAdapter = new DinnerTimeTopRatedAdapter(this, events);
-        timeList.setAdapter(dinnerTimeAdapter);
+        
+        LinearLayout testLayout = (LinearLayout) popup.findViewById(R.id.test_layout);
+        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        TextView tv = new TextView(this);
+        tv.setLayoutParams(lparams);
+        tv.setText("test");
+        testLayout.addView(tv);
+//        timeList = (RecyclerView) popup.findViewById(R.id.dinner_time_list);
+//        dinnerTimeLmanager = new LinearLayoutManager(this);
+//        timeList.setLayoutManager(dinnerTimeLmanager);
+//        dinnerTimeAdapter = new DinnerTimeTopRatedAdapter(this, events);
+//        timeList.setAdapter(dinnerTimeAdapter);
 
         popup.show();
     }
