@@ -8,7 +8,6 @@ public class User extends RealmObject {
     private String username;
     private String password;
     private byte[] profilePic;
-    private String userId;
 
     public String getUsername() {
         return username;
@@ -34,11 +33,4 @@ public class User extends RealmObject {
         this.profilePic = profilePic;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }
