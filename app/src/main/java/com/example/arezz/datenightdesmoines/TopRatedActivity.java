@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -115,7 +116,7 @@ public class TopRatedActivity extends AppCompatActivity {
                 event1.setEventType("Dinner");
                 event1.setStartTime(new Time(6,30,00));
                 event1.setStartTime(new Time(7,30,00));
-                event1.setNight(realm.where(Night.class).equalTo("Id", "1").findFirst());
+                //event1.setNight(realm.where(Night.class).equalTo("Id", "1").findFirst());
 
                 Night night1 = new Night();
                 night1.setId("1");
@@ -123,6 +124,7 @@ public class TopRatedActivity extends AppCompatActivity {
                 night1.setDateName("Fun Times");
                 night1.setDate(new Date(12,13,2014));
                 night1.setRating(5);
+                night1.getEvents().add(event1);
                 realm.copyToRealmOrUpdate(night1);
 
                 Night night2 = new Night();
@@ -158,19 +160,18 @@ public class TopRatedActivity extends AppCompatActivity {
         RatingBar dateRating = (RatingBar) popup.findViewById(R.id.date_rating);
         dateRating.setIsIndicator(true);
         dateRating.setRating(rating.getRating());
-        
-        LinearLayout testLayout = (LinearLayout) popup.findViewById(R.id.test_layout);
+
+        LinearLayout eventList = (LinearLayout) popup.findViewById(R.id.event_list);
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        TextView tv = new TextView(this);
-        tv.setLayoutParams(lparams);
-        tv.setText("test");
-        testLayout.addView(tv);
-//        timeList = (RecyclerView) popup.findViewById(R.id.dinner_time_list);
-//        dinnerTimeLmanager = new LinearLayoutManager(this);
-//        timeList.setLayoutManager(dinnerTimeLmanager);
-//        dinnerTimeAdapter = new DinnerTimeTopRatedAdapter(this, events);
-//        timeList.setAdapter(dinnerTimeAdapter);
+        for(int i=0;i<5;i++) {
+            TextView tv = new TextView(this);
+            tv.setLayoutParams(lparams);
+            tv.setTypeface(null, Typeface.BOLD);
+            tv.setText("test");
+            eventList.addView(tv);
+        }
+
 
         popup.show();
     }
