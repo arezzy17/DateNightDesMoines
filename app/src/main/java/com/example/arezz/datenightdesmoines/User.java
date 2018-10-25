@@ -2,10 +2,12 @@ package com.example.arezz.datenightdesmoines;
 
 import android.graphics.Bitmap;
 
-public class User {
+import io.realm.RealmObject;
+
+public class User extends RealmObject {
     private String username;
     private String password;
-    private Bitmap profilePic;
+    private byte[] profilePic;
     private String userId;
 
     public String getUsername() {
@@ -24,11 +26,11 @@ public class User {
         this.password = password;
     }
 
-    public Bitmap getProfilePic() {
+    public byte[] getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(Bitmap profilePic) {
+    public void setProfilePic(byte[] profilePic) {
         this.profilePic = profilePic;
     }
 

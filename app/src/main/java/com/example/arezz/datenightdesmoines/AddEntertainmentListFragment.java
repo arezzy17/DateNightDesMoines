@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -42,6 +44,9 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
 
         entertainmentItems = new ArrayList<YelpItem>();
         entertainmentList = (RecyclerView) view.findViewById(R.id.entertainment_list);
+        ((Button)this.getActivity().findViewById(R.id.create_new_add_button)).setVisibility(View.INVISIBLE);
+        CreateNewFragmentHelpers.clearColoredElements(entertainmentItems, entertainmentList);
+
 
         RequestQueue queue = MySingleton.getInstance(getContext().getApplicationContext()).getRequestQueue();
         String[] params = {"categories", "sort_by"};
@@ -54,8 +59,9 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
         layoutManager = new LinearLayoutManager(getContext());
         entertainmentList.setLayoutManager(layoutManager);
 
+        RecyclerViewClickListener listener = CreateNewFragmentHelpers.GetFragmentListener(entertainmentItems, entertainmentList, this);
 
-        yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems,new Dialog(this.getContext()));
+        yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems,new Dialog(this.getContext()), listener);
         entertainmentList.setAdapter(yelpItemAdapter);
 
         return view;
@@ -78,8 +84,9 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
 
             }
         }
+        RecyclerViewClickListener listener = CreateNewFragmentHelpers.GetFragmentListener(entertainmentItems, entertainmentList, this);
 
-        yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems,new Dialog(this.getContext()));
+        yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems,new Dialog(this.getContext()), listener);
         entertainmentList.setAdapter(yelpItemAdapter);
     }
 }
