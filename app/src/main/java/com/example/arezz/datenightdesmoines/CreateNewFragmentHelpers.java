@@ -16,7 +16,7 @@ public class CreateNewFragmentHelpers {
             public void onClick(View view, int position) {
                 try{
                     clearColoredElements(items, list);
-                    list.findViewHolderForAdapterPosition(position).itemView.setBackgroundColor(Color.GREEN);
+                    list.findViewHolderForAdapterPosition(position).itemView.setBackgroundColor(Color.parseColor("#b3b3b3"));
                     ((Button)thisFrag.getActivity().findViewById(R.id.create_new_add_button)).setVisibility(View.VISIBLE);
 
                 }
