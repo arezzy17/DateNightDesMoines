@@ -31,11 +31,10 @@ import io.realm.RealmResults;
 public class TopRatedActivity extends AppCompatActivity {
 
     private RecyclerView topRatedList;
-    private RecyclerView timeList;
+    private RecyclerView eventList;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.LayoutManager dinnerTimeLmanager;
-    private RecyclerView.LayoutManager activityTimeLmanager;
-    private RecyclerView.Adapter dinnerTimeAdapter;
+    private RecyclerView.LayoutManager eventLayoutManager;
+    private RecyclerView.Adapter eventAdapter;
     private RecyclerView.Adapter ratingAdapter;
     private Button CreateNewButton;
     private Button PlannedNightsButton;
@@ -113,10 +112,6 @@ public class TopRatedActivity extends AppCompatActivity {
             public void execute(Realm realm) {
                 Event event1 = new Event();
                 Date time1 =  new Date();
-                event1.setEventType("Dinner");
-                event1.setStartTime(new Time(6,30,00));
-                event1.setStartTime(new Time(7,30,00));
-                //event1.setNight(realm.where(Night.class).equalTo("Id", "1").findFirst());
 
                 Night night1 = new Night();
                 night1.setId("1");
@@ -124,8 +119,13 @@ public class TopRatedActivity extends AppCompatActivity {
                 night1.setDateName("Fun Times");
                 night1.setDate(new Date(12,13,2014));
                 night1.setRating(5);
-                night1.getEvents().add(event1);
-                realm.copyToRealmOrUpdate(night1);
+                realm.copyToRealm(night1);
+
+                event1.setEventType("Dinner");
+                event1.setStartTime(new Time(6,30,00));
+                event1.setEndTime(new Time(7,30,00));
+                event1.setNight(realm.where(Night.class).equalTo("Id", "1").findFirst());
+                realm.copyToRealm(event1);
 
                 Night night2 = new Night();
                 Date date2 =  new Date();
@@ -137,7 +137,7 @@ public class TopRatedActivity extends AppCompatActivity {
                 night2.setDateName("Drake at Drake");
                 night2.setDate(date2);
                 night2.setRating(3);
-                realm.copyToRealmOrUpdate(night2);
+                realm.copyToRealm(night2);
             }
         });
     }
@@ -161,17 +161,23 @@ public class TopRatedActivity extends AppCompatActivity {
         dateRating.setIsIndicator(true);
         dateRating.setRating(rating.getRating());
 
-        LinearLayout eventList = (LinearLayout) popup.findViewById(R.id.event_list);
-        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        for(int i=0;i<5;i++) {
-            TextView tv = new TextView(this);
-            tv.setLayoutParams(lparams);
-            tv.setTypeface(null, Typeface.BOLD);
-            tv.setText("test");
-            eventList.addView(tv);
-        }
+//        LinearLayout eventList = (LinearLayout) popup.findViewById(R.id.event_list);
+//        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        for(int i=0;i<5;i++) {
+//            TextView tv = new TextView(this);
+//            tv.setLayoutParams(lparams);
+//            tv.setTypeface(null, Typeface.BOLD);
+//            tv.setText("test");
+//            eventList.addView(tv);
+//        }
 
+        eventList = (RecyclerView) popup.findViewById(R.id.event_list);
+        eventLayoutManager = new LinearLayoutManager(this);
+        eventList.setLayoutManager(eventLayoutManager);
+
+        eventAdapter = new EventTopRatedAdapter(this, events);
+        eventList.setAdapter(eventAdapter);
 
         popup.show();
     }
