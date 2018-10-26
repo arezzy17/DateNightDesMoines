@@ -50,7 +50,7 @@ public class CreateUser extends AppCompatActivity {
                 SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",
                         MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("username", usernameTest.getUsername());
+                editor.putString("username", username.getText().toString());
                 editor.apply();
 
                 realm.executeTransaction(new Realm.Transaction() {
