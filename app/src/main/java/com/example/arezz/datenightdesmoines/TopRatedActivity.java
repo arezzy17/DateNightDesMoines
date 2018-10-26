@@ -72,13 +72,18 @@ public class TopRatedActivity extends AppCompatActivity {
         CreateNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Realm realm = Realm.getDefaultInstance();
                 String loggedInUser = pref.getString("username", null);
+                Night newNight = new Night();
+                newNight.setId(realm.where(Night.class).findAllSorted("id").last().getId() +1);
                 if(loggedInUser == null) {
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                     intent.putExtra("navigate_to", "CreateNewNight");
+                    intent.putExtra("new_night_id", newNight.getId());
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
+                    intent.putExtra("new_night_id", newNight.getId());
                     startActivity(intent);
                 }
             }
