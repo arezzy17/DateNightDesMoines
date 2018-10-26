@@ -1,6 +1,7 @@
 package com.example.arezz.datenightdesmoines;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +47,12 @@ public class CreateUser extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     return;
                 }
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",
+                        MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("username", username.getText().toString());
+                editor.apply();
+
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
