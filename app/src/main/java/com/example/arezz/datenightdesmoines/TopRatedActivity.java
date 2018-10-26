@@ -86,18 +86,30 @@ public class TopRatedActivity extends AppCompatActivity {
         PlannedNightsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                intent.putExtra("navigate_to", "PlannedNight");
-                startActivity(intent);
+                String loggedInUser = pref.getString("username", null);
+                if(loggedInUser == null) {
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.putExtra("navigate_to", "PlannedNight");
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getBaseContext(), PlannedNight.class);
+                    startActivity(intent);
+                }
             }
         });
 
         PastNightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                intent.putExtra("navigate_to", "PastNights");
-                startActivity(intent);
+                String loggedinUser = pref.getString("username", null);
+                if(loggedinUser == null) {
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.putExtra("navigate_to", "PastNights");
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getBaseContext(), PastNightActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
