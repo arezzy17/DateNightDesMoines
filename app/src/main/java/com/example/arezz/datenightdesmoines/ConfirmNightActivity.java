@@ -46,6 +46,8 @@ public class ConfirmNightActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
                 startActivity(intent);
+
+                //need to return to edit night but keep all of the events set
             }
         });
 
@@ -62,10 +64,12 @@ public class ConfirmNightActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), CurrentNight.class);
                 startActivity(intent);
+
+                //need to set up realm to save the night
             }
         });
 
-        final ArrayList<Event> events = new ArrayList<Event>();
+        final ArrayList<Event> events = new ArrayList<>();
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
@@ -80,7 +84,7 @@ public class ConfirmNightActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         NightList.setLayoutManager(layoutManager);
 
-        confirmAdapter = new ConfirmNightAdapter(this, events, listener);
+        confirmAdapter = new ConfirmNightAdapter(getBaseContext(), events, listener);
         NightList.setAdapter(confirmAdapter);
     }
-}w
+}

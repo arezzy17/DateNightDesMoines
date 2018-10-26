@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 public class ConfirmNightAdapter extends RecyclerView.Adapter<ConfirmNightAdapter.ConfirmNightViewHolder> {
     private Context context;
@@ -13,7 +15,8 @@ public class ConfirmNightAdapter extends RecyclerView.Adapter<ConfirmNightAdapte
     private RecyclerViewClickListener mListener;
 
 
-    public ConfirmNightAdapter(Context context, ArrayList<Event> dataSet) {
+    public ConfirmNightAdapter(Context context, ArrayList<Event> dataSet, RecyclerViewClickListener
+                               clickListener) {
         this.context = context;
         this.events = dataSet;
         this.mListener = clickListener;
@@ -50,7 +53,7 @@ public class ConfirmNightAdapter extends RecyclerView.Adapter<ConfirmNightAdapte
         public ConfirmNightAdapter.ConfirmNightViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = (View) LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.confirm_cell, parent, false);
-            ConfirmNightViewHolder vh = new ConfirmNightViewHolder(v);
+            ConfirmNightViewHolder vh = new ConfirmNightViewHolder(v, mListener);
             return vh;
         }
 
