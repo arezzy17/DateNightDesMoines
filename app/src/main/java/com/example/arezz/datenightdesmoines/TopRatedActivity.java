@@ -1,12 +1,15 @@
 package com.example.arezz.datenightdesmoines;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -25,16 +28,22 @@ public class TopRatedActivity extends AppCompatActivity {
     private Button CreateNewButton;
     private Button PlannedNightsButton;
     private Button PastNightButton;
+    private ImageButton LogOutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_rated);
 
+
+        final SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = pref.edit();
+
         topRatedList = (RecyclerView) findViewById(R.id.top_rated_list);
         CreateNewButton = (Button) findViewById(R.id.create_new_night_rating);
         PlannedNightsButton = (Button) findViewById(R.id.planned_night_rating);
         PastNightButton = (Button) findViewById(R.id.past_night_rating);
+        LogOutButton = (ImageButton) findViewById(R.id.log_out_button);
 
         Realm realm = Realm.getDefaultInstance();
         final RealmResults<Night> topRatedNights = realm.where(Night.class).findAll();
@@ -62,27 +71,54 @@ public class TopRatedActivity extends AppCompatActivity {
         CreateNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                intent.putExtra("navigate_to", "CreateNewNight");
-                startActivity(intent);
+                String loggedInUser = pref.getString("username", null);
+                if(loggedInUser == null) {
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.putExtra("navigate_to", "CreateNewNight");
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
+                    startActivity(intent);
+                }
             }
         });
 
         PlannedNightsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                intent.putExtra("navigate_to", "PlannedNight");
-                startActivity(intent);
+                String loggedInUser = pref.getString("username", null);
+                if(loggedInUser == null) {
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.putExtra("navigate_to", "PlannedNight");
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getBaseContext(), PlannedNight.class);
+                    startActivity(intent);
+                }
             }
         });
 
         PastNightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                intent.putExtra("navigate_to", "PastNights");
-                startActivity(intent);
+                String loggedinUser = pref.getString("username", null);
+                if(loggedinUser == null) {
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    intent.putExtra("navigate_to", "PastNights");
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getBaseContext(), PastNightActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        LogOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.remove("username");
+                editor.apply();
+                Toast.makeText(getBaseContext(), "User logged out", Toast.LENGTH_SHORT).show();
             }
         });
     }
