@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -19,6 +20,7 @@ public class ReviewActivity extends AppCompatActivity {
     private ImageView nightImage;
     private RatingBar ratingBar;
     private EditText commentReview;
+    private ImageButton homeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,15 @@ public class ReviewActivity extends AppCompatActivity {
         nightImage = (ImageView) findViewById(R.id.night_image);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar_review);
         commentReview = (EditText) findViewById(R.id.comment_review);
+        homeButton = (ImageButton) findViewById(R.id.home_button);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
+                startActivity(intent);
+            }
+        });
 
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override

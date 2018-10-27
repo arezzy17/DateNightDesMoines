@@ -30,7 +30,6 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter yelpItemAdapter;
     private ArrayList<YelpItem> entertainmentItems;
-
     public AddEntertainmentListFragment() {
         // Required empty public constructor
     }
@@ -66,7 +65,6 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
 
         return view;
     }
-
     public void setList(JSONObject jsonObject){
         JSONArray businesses = new JSONArray();
         try{

@@ -15,6 +15,9 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreateUser" />
+        <activity android:name=".ConfirmNightActivity">
+
+        </activity>
         <activity android:name=".TopRatedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
