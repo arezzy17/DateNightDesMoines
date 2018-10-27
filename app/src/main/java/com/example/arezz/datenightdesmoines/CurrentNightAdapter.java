@@ -27,15 +27,11 @@ public class CurrentNightAdapter extends RecyclerView.Adapter<CurrentNightAdapte
     public static class CurrentNightViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView eventNameView;
         public TextView eventTypeView;
-        public TextView startTimeView;
-        public TextView endTimeView;
         private RecyclerViewClickListener mListener;
         public CurrentNightViewHolder(View v, RecyclerViewClickListener listener) {
             super(v);
             eventNameView = v.findViewById(R.id.event_name_current);
             eventTypeView = v.findViewById(R.id.event_type_current);
-            endTimeView = v.findViewById(R.id.endTime_current);
-            startTimeView = v.findViewById(R.id.startTime_current);
             mListener = listener;
             v.setOnClickListener(this);
         }
@@ -63,7 +59,5 @@ public class CurrentNightAdapter extends RecyclerView.Adapter<CurrentNightAdapte
     public void onBindViewHolder(CurrentNightAdapter.CurrentNightViewHolder holder, int position) {
         holder.eventNameView.setText(events.get(position).getEventName());
         holder.eventTypeView.setText(events.get(position).getEventType());
-        holder.startTimeView.setText((CharSequence) events.get(position).getStartTime());
-        holder.endTimeView.setText((CharSequence) events.get(position).getEndTime());
     }
 }
