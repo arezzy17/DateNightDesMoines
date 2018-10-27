@@ -10,14 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import io.realm.RealmResults;
 
 public class CurrentNightAdapter extends RecyclerView.Adapter<CurrentNightAdapter.CurrentNightViewHolder> {
-    private ArrayList<Event> events;
+    private RealmResults<Event> events;
     private Context context;
     private RecyclerViewClickListener mListener;
 
-    public CurrentNightAdapter(Context context, ArrayList<Event> dataSet, RecyclerViewClickListener
+    public CurrentNightAdapter(Context context, RealmResults<Event> dataSet, RecyclerViewClickListener
             clickListener) {
         this.context = context;
         this.events = dataSet;
