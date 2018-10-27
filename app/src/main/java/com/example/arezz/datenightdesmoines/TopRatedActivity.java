@@ -46,7 +46,8 @@ public class TopRatedActivity extends AppCompatActivity {
         LogOutButton = (ImageButton) findViewById(R.id.log_out_button);
 
         Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Night> topRatedNights = realm.where(Night.class).findAll();
+        final RealmResults<Night> topRatedNights = realm.where(Night.class)
+                .greaterThan("rating", 2).findAll();
         if(topRatedNights.size() == 0) {
             populateTopRated();
         }
