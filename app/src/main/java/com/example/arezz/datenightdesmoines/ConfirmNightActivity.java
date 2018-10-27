@@ -1,5 +1,6 @@
 package com.example.arezz.datenightdesmoines;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,10 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ConfirmNightActivity extends AppCompatActivity {
+public class ConfirmNightActivity extends AppCompatActivity implements IYelpList{
 
     private ImageView ConfirmImage;
     private EditText NameNightText;
@@ -27,13 +33,16 @@ public class ConfirmNightActivity extends AppCompatActivity {
 
 
 
+    public void setList(JSONObject obj){
+        YelpItem displayItem = YelpItem.GetYelpItemFromBusinessJSON(obj);
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_night);
 
         NightList = (RecyclerView) findViewById(R.id.night_list_confirm);
-        ConfirmImage = (ImageView) findViewById(R.id.image_confirm);
         NameNightText = (EditText) findViewById(R.id.name_night_confirm);
         EditNightButton = (Button) findViewById(R.id.edit_night_button_confirm);
         ConfirmNightButton = (Button) findViewById(R.id.confirm_night_button_confirm);
@@ -70,21 +79,21 @@ public class ConfirmNightActivity extends AppCompatActivity {
         });
 
         final ArrayList<Event> events = new ArrayList<>();
-
+        final IYelpList thisAct = this;
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Event event = (Event) events.get(position);
-                Intent intent = new Intent(view.getContext(), LoginActivity.class); // navigate to details card once it's created
-                intent.putExtra("event",(Serializable)event);
-                startActivity(intent);
+                RequestQueue queue = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+                JsonObjectRequest myReq = MySingleton.getInstance(getBaseContext()).GetJsonRequestYelpId("https://api.yelp.com/v3/businesses/","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx",event.getYelpID(), thisAct);
+                MySingleton.getInstance(getBaseContext()).addToRequestQueue(myReq);
             }
         };
 
         layoutManager = new LinearLayoutManager(this);
         NightList.setLayoutManager(layoutManager);
 
-        confirmAdapter = new ConfirmNightAdapter(getBaseContext(), events, listener);
+        confirmAdapter = new ConfirmNightAdapter(getBaseContext(), events, new Dialog(getBaseContext()), listener);
         NightList.setAdapter(confirmAdapter);
     }
 }
