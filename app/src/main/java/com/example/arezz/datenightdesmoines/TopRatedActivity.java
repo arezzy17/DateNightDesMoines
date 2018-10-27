@@ -138,7 +138,7 @@ public class TopRatedActivity extends AppCompatActivity {
                 night1.setDateName("Fun Times");
                 night1.setDate(date);
                 night1.setRating(5);
-                realm.copyToRealmOrUpdate(night1);
+                realm.copyToRealm(night1);
 
                 Night night2 = new Night();
                 Date date2 =  new Date();
@@ -150,7 +150,7 @@ public class TopRatedActivity extends AppCompatActivity {
                 night2.setDateName("Drake at Drake");
                 night2.setDate(date2);
                 night2.setRating(3);
-                realm.copyToRealmOrUpdate(night2);
+                realm.copyToRealm(night2);
             }
         });
     }
