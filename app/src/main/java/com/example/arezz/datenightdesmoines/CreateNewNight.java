@@ -20,6 +20,8 @@ import io.realm.Realm;
 
 public class CreateNewNight extends AppCompatActivity implements IYelpId {
     Button addButton;
+    Button nextButton;
+
     Night currentNight;
     TabLayout.Tab currentTab;
     String currentId;
@@ -34,6 +36,30 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Realm realm = Realm.getDefaultInstance();
+        if(getIntent().getStringExtra("nightId") != null && getIntent().getStringExtra("nightId").length() > 0){
+            String nightId = getIntent().getStringExtra("nightId");
+            currentNight = realm.where(Night.class).equalTo("Id", nightId).findFirst();
+        }
+        else{
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            String user = pref.getString("username", "");
+            if (user.equals("")) {
+                Toast.makeText(getBaseContext(), "Error accessing user", Toast.LENGTH_SHORT);
+            }
+            currentNight = new Night();
+            currentNight.setUsername(user);
+            currentNight.setId(UUID.randomUUID().toString());
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realm.copyToRealm(currentNight);
+                }
+            });
+        }
+
+
 
         setContentView(R.layout.activity_create_new_night);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,28 +96,13 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
         });
 
         addButton = (Button)findViewById(R.id.create_new_add_button);
+        nextButton =(Button)findViewById(R.id.create_new_next_button);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Realm realm = Realm.getDefaultInstance();
-                if(currentNight == null) {
-                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                    String user = pref.getString("username", "");
-                    if (user.equals("")) {
-                        Toast.makeText(getBaseContext(), "Error accessing user", Toast.LENGTH_SHORT);
-                    }
-                    currentNight = new Night();
-                    currentNight.setUsername(user);
-                    currentNight.setId(UUID.randomUUID().toString());
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealm(currentNight);
-                        }
-                    });
 
-                }
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
@@ -99,13 +110,13 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
                         newEvent.setNight(realm.where(Night.class).equalTo("Id",currentNight.getId()).findFirst());
 
                         if(currentTab.getText().toString().toLowerCase().equals("food")){
-                            newEvent.setEventType("food");
+                            newEvent.setEventType("Food");
                         }
                         else if(currentTab.getText().toString().toLowerCase().equals("entertainment")){
-                            newEvent.setEventType("entertainment");
+                            newEvent.setEventType("Entertainment");
                         }
                         else {
-                            newEvent.setEventType("drinks");
+                            newEvent.setEventType("Drinks");
                         }
 
                         newEvent.setYelpID(currentId);
@@ -119,6 +130,14 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
             }
         });
 
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(getBaseContext(), ConfirmNightActivity.class );
+               intent.putExtra("nightId", currentNight.getId());
+               startActivity(intent);
+            }
+        });
 
     }
 

@@ -17,6 +17,7 @@ public class Event extends RealmObject {
     public void setNight(Night night) {
         this.night = night;
     }
+
     public String getYelpID() {
         return yelpID;
     }

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.android.volley.RequestQueue;
@@ -26,10 +27,11 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
     private Button EditNightButton;
     private Button ConfirmNightButton;
     private RecyclerView NightList;
-    private Button HomeButton;
+    private ImageButton HomeButton;
     private EditText DateSelector;
     private RecyclerView.Adapter confirmAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ImageButton homeButton;
 
 
 
@@ -46,9 +48,17 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         NameNightText = (EditText) findViewById(R.id.name_night_confirm);
         EditNightButton = (Button) findViewById(R.id.edit_night_button_confirm);
         ConfirmNightButton = (Button) findViewById(R.id.confirm_night_button_confirm);
-        HomeButton = (Button) findViewById(R.id.home_button_confirm);
+        HomeButton = (ImageButton) findViewById(R.id.home_button);
         DateSelector = (EditText) findViewById(R.id.date_selector_confirm);
+        homeButton = (ImageButton) findViewById(R.id.home_button);
 
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
+                startActivity(intent);
+            }
+        });
 
         EditNightButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,14 +67,6 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
                 startActivity(intent);
 
                 //need to return to edit night but keep all of the events set
-            }
-        });
-
-        HomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(intent);
             }
         });
 
