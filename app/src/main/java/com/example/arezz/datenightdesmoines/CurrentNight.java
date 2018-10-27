@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.io.Serializable;
@@ -23,6 +24,7 @@ public class CurrentNight extends AppCompatActivity {
     private Button addEventButton;
     private Button reviewButton;
     private Button completeButton;
+    private ImageButton homeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class CurrentNight extends AppCompatActivity {
         addEventButton = (Button) findViewById(R.id.add_event_button);
         reviewButton = (Button) findViewById(R.id.review_button);
         completeButton = (Button) findViewById(R.id.complete_button);
+        homeButton = (ImageButton) findViewById(R.id.home_button);
 
         String user = pref.getString("username", null);
         String nightId = getIntent().getStringExtra("nightID");
@@ -44,6 +47,13 @@ public class CurrentNight extends AppCompatActivity {
         Night currentNight = (Night) nights.get(0);
         final RealmResults<Event> events = currentNight.getEvents();
 
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
+                startActivity(intent);
+            }
+        });
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override

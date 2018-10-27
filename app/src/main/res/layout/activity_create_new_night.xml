@@ -45,7 +45,9 @@
         android:layout_marginLeft="10dp"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
+        android:fontFamily="@font/roboto_medium"
         android:text="Add"
+        android:textColor="@android:color/background_light"
         android:visibility="invisible" />
 
     <Button
@@ -56,6 +58,8 @@
         android:layout_marginLeft="210dp"
         android:layout_weight="1"
         android:background="@color/colorPrimary"
-        android:text="View Night" />
+        android:fontFamily="@font/roboto_medium"
+        android:text="View Night"
+        android:textColor="@android:color/background_light" />
 
 </android.support.design.widget.CoordinatorLayout>
