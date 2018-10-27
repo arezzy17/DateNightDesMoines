@@ -10,7 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class CurrentNight extends AppCompatActivity {
 
@@ -33,7 +34,8 @@ public class CurrentNight extends AppCompatActivity {
         reviewButton = (Button) findViewById(R.id.review_button);
         completeButton = (Button) findViewById(R.id.complete_button);
 
-        final ArrayList<Event> events = new ArrayList<Event>();
+        Realm realm = Realm.getDefaultInstance();
+        final RealmResults<Event> events = realm.where(Event.class).findAll();
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
