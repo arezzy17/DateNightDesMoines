@@ -19,11 +19,11 @@ public class EventTopRatedAdapter extends RecyclerView.Adapter<EventTopRatedAdap
     }
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
-        public TextView eventTimeRange;
+        public TextView eventType;
         public TextView place;
         public EventViewHolder(View v) {
             super(v);
-            eventTimeRange = v.findViewById(R.id.event_time_range);
+            eventType = v.findViewById(R.id.event_type);
             place = v.findViewById(R.id.place_name);
         }
     }
@@ -44,7 +44,7 @@ public class EventTopRatedAdapter extends RecyclerView.Adapter<EventTopRatedAdap
     @Override
     public void onBindViewHolder(EventTopRatedAdapter.EventViewHolder holder, int position) {
         if(selectedNight.get(position).getEventType().equals("Dinner")) {
-            holder.eventTimeRange.setText(selectedNight.get(position).getStartTime().toString()+"-"+selectedNight.get(position).getEndTime());
+            holder.eventType.setText(selectedNight.get(position).getEventType());
             holder.place.setText("Biaggis");
         }
     }
