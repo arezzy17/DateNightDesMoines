@@ -90,6 +90,7 @@ public class AddDrinksListFragment extends Fragment implements IYelpList {
 
         return view;
     }
+
     public void setList(JSONObject jsonObject){
         JSONArray businesses = new JSONArray();
         try{
