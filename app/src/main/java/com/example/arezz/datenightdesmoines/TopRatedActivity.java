@@ -72,7 +72,9 @@ public class TopRatedActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Night rating = (Night) topRatedNights.get(position);
-                showPopup(rating);
+                //showPopup(rating);
+                DateDetailPopup datePopup = new DateDetailPopup();
+                datePopup.showPopup(rating, popup);
 //                Intent intent = new Intent(view.getContext(), LoginActivity.class);
 //                intent.putExtra("navigate_to", "Top Rated");
 //                intent.putExtra("rating",rating.getId());
@@ -179,43 +181,51 @@ public class TopRatedActivity extends AppCompatActivity {
         });
     }
 
-    private void showPopup(Night rating) {
-        popup.setContentView(R.layout.top_rated_details_popup);
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<Event> events = rating.getEvents();
-
-        TextView dateName = (TextView) popup.findViewById(R.id.date_name);
-        dateName.setText(rating.getDateName());
-
-        ImageView datePicture = (ImageView) popup.findViewById(R.id.date_picture);
-        if(rating.getImageId() != null) {
-            Image image = realm.where(Image.class).equalTo("Id", rating.getImageId()).findFirst();
-            Bitmap bmp = BitmapFactory.decodeByteArray(image.getImageBitmap(),0,image.getId().length());
-            datePicture.setImageBitmap(bmp);
-        }
-
-        RatingBar dateRating = (RatingBar) popup.findViewById(R.id.date_rating);
-        dateRating.setIsIndicator(true);
-        dateRating.setRating(rating.getRating());
-
-//        LinearLayout eventList = (LinearLayout) popup.findViewById(R.id.event_list);
-//        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        for(int i=0;i<5;i++) {
-//            TextView tv = new TextView(this);
-//            tv.setLayoutParams(lparams);
-//            tv.setTypeface(null, Typeface.BOLD);
-//            tv.setText("test");
-//            eventList.addView(tv);
+//    private void showPopup(final Night rating) {
+//        popup.setContentView(R.layout.top_rated_details_popup);
+//        Realm realm = Realm.getDefaultInstance();
+//        RealmResults<Event> events = rating.getEvents();
+//
+//        TextView dateName = (TextView) popup.findViewById(R.id.date_name);
+//        dateName.setText(rating.getDateName());
+//
+//        ImageView datePicture = (ImageView) popup.findViewById(R.id.date_picture);
+//        if(rating.getImageId() != null) {
+//            Image image = realm.where(Image.class).equalTo("id", rating.getImageId()).findFirst();
+//            Bitmap bmp = BitmapFactory.decodeByteArray(image.getImageBitmap(),0,image.getId().length());
+//            datePicture.setImageBitmap(bmp);
 //        }
-
-        eventList = (RecyclerView) popup.findViewById(R.id.event_list);
-        eventLayoutManager = new LinearLayoutManager(this);
-        eventList.setLayoutManager(eventLayoutManager);
-
-        eventAdapter = new EventTopRatedAdapter(this, events);
-        eventList.setAdapter(eventAdapter);
-
-        popup.show();
-    }
+//
+//        RatingBar dateRating = (RatingBar) popup.findViewById(R.id.date_rating);
+//        dateRating.setIsIndicator(true);
+//        dateRating.setRating(rating.getRating());
+//
+//        eventList = (RecyclerView) popup.findViewById(R.id.event_list);
+//        eventLayoutManager = new LinearLayoutManager(this);
+//        eventList.setLayoutManager(eventLayoutManager);
+//
+//        eventAdapter = new EventTopRatedAdapter(this, events);
+//        eventList.setAdapter(eventAdapter);
+//
+//        Button selectButton = (Button) popup.findViewById(R.id.select_button);
+//        selectButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popup.dismiss();
+//                Intent intent = new Intent(getBaseContext(), ConfirmNightActivity.class);
+//                intent.putExtra("nightId", rating.getId());
+//                startActivity(intent);
+//            }
+//        });
+//
+//        Button closeButton = (Button) popup.findViewById(R.id.close_button);
+//        closeButton.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popup.dismiss();
+//            }
+//        });
+//
+//        popup.show();
+//    }
 }

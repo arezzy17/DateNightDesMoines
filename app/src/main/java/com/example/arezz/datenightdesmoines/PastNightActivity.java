@@ -1,5 +1,6 @@
 package com.example.arezz.datenightdesmoines;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class PastNightActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter pastNightsAdapter;
     private ImageButton homeButton;
+    Dialog popup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class PastNightActivity extends AppCompatActivity {
 
         pastNightsList = (RecyclerView) findViewById(R.id.past_nights_list);
         homeButton = (ImageButton) findViewById(R.id.home_button);
+        popup = new Dialog(this);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,10 +46,12 @@ public class PastNightActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Night rating = (Night) pastNights.get(position);
-                Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                intent.putExtra("navigate_to", "Top Rated");
-                intent.putExtra("rating",rating.getId());
-                startActivity(intent);
+                DateDetailPopup datePopup = new DateDetailPopup();
+                datePopup.showPopup(rating, popup);
+//                Intent intent = new Intent(view.getContext(), LoginActivity.class);
+//                intent.putExtra("navigate_to", "Top Rated");
+//                intent.putExtra("rating",rating.getId());
+//                startActivity(intent);
             }
         };
 
