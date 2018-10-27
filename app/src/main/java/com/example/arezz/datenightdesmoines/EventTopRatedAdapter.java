@@ -43,9 +43,7 @@ public class EventTopRatedAdapter extends RecyclerView.Adapter<EventTopRatedAdap
 
     @Override
     public void onBindViewHolder(EventTopRatedAdapter.EventViewHolder holder, int position) {
-        if(selectedNight.get(position).getEventType().equals("Dinner")) {
-            holder.eventType.setText(selectedNight.get(position).getEventType());
-            holder.place.setText("Biaggis");
-        }
+        holder.eventType.setText(selectedNight.get(position).getEventType());
+        holder.place.setText(selectedNight.get(position).getEventName());
     }
 }
