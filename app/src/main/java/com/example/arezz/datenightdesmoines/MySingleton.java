@@ -106,4 +106,36 @@ public class MySingleton {
 
     }
 
+    public JsonObjectRequest GetJsonRequestYelpId(String url, final String Authorization, final String yelpId, final IYelpList fragment) {
+
+        url = url+yelpId;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        fragment.setList(response);
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        String mes = error.getMessage();
+                    }
+                }) {
+
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", Authorization);
+                return params;
+            }
+
+        }  ;
+
+        return jsonObjectRequest;
+
+    }
 }
