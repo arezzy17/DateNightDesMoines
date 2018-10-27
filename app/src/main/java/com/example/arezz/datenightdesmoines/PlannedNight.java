@@ -1,11 +1,13 @@
 package com.example.arezz.datenightdesmoines;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -23,6 +25,7 @@ public class PlannedNight extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter plannedAdapter;
     private TextView titleView;
+    private ImageButton homeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,15 @@ public class PlannedNight extends AppCompatActivity {
 
         planned_night_list = (RecyclerView) findViewById(R.id.list_plannedNights);
         titleView = (TextView) findViewById(R.id.title_view_planned);
+        homeButton = (ImageButton) findViewById(R.id.home_button);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Realm realm = Realm.getDefaultInstance();
         final RealmResults<Night> plannedNights = realm.where(Night.class).findAll();
