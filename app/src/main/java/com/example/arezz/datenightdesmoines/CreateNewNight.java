@@ -110,13 +110,13 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
                         newEvent.setNight(realm.where(Night.class).equalTo("Id",currentNight.getId()).findFirst());
 
                         if(currentTab.getText().toString().toLowerCase().equals("food")){
-                            newEvent.setEventType("food");
+                            newEvent.setEventType("Food");
                         }
                         else if(currentTab.getText().toString().toLowerCase().equals("entertainment")){
-                            newEvent.setEventType("entertainment");
+                            newEvent.setEventType("Entertainment");
                         }
                         else {
-                            newEvent.setEventType("drinks");
+                            newEvent.setEventType("Drinks");
                         }
 
                         newEvent.setYelpID(currentId);
