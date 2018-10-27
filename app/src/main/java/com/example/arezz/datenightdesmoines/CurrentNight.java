@@ -1,6 +1,7 @@
 package com.example.arezz.datenightdesmoines;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ public class CurrentNight extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_night);
 
@@ -34,8 +36,14 @@ public class CurrentNight extends AppCompatActivity {
         reviewButton = (Button) findViewById(R.id.review_button);
         completeButton = (Button) findViewById(R.id.complete_button);
 
+        String user = pref.getString("username", null);
+        String nightId = getIntent().getStringExtra("nightID");
+
         Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Event> events = realm.where(Event.class).findAll();
+        final RealmResults<Night> nights = realm.where(Night.class).equalTo("Id", nightId).findAll();
+        Night currentNight = (Night) nights.get(0);
+        final RealmResults<Event> events = currentNight.getEvents();
+
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
