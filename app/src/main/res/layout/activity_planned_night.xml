@@ -25,6 +25,8 @@
         android:layout_marginTop="8dp"
         android:text="Your Planned Nights"
         android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/list_plannedNights"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
