@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -23,15 +25,13 @@ public class ConfirmNightAdapter extends RecyclerView.Adapter<ConfirmNightAdapte
 
     public static class ConfirmNightViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView eventNameView;
-        public TextView startTimeView;
-        public TextView endTimeView;
+
         private RecyclerViewClickListener mListener;
 
         public ConfirmNightViewHolder(View v, RecyclerViewClickListener listener) {
             super(v);
             eventNameView = v.findViewById(R.id.event_name_confirm);
-            endTimeView = v.findViewById(R.id.event_end_confirm);
-            startTimeView = v.findViewById(R.id.event_start_confirm);
+
             mListener = listener;
             v.setOnClickListener(this);
         }
@@ -58,10 +58,10 @@ public class ConfirmNightAdapter extends RecyclerView.Adapter<ConfirmNightAdapte
 
         @Override
         public void onBindViewHolder(ConfirmNightViewHolder holder, int position) {
-            // holder.????.setText(nights.get(position).getName());
-            //holder.ageView.setText(bulldogs.get(postion).getAge());
             holder.eventNameView.setText(events.get(position).getEventName());
-            holder.startTimeView.setText((CharSequence) events.get(position).getStartTime());
-            holder.endTimeView.setText((CharSequence) events.get(position).getEndTime());
+
         }
+
+
+
     }
