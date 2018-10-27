@@ -2,6 +2,7 @@ package com.example.arezz.datenightdesmoines;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,9 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ConfirmNightActivity extends AppCompatActivity implements IYelpList{
 
@@ -48,7 +52,8 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         ConfirmNightButton = (Button) findViewById(R.id.confirm_night_button_confirm);
         HomeButton = (Button) findViewById(R.id.home_button_confirm);
         DateSelector = (EditText) findViewById(R.id.date_selector_confirm);
-
+        Intent intent = new Intent();
+        String nightId = intent.getStringExtra("nightId");
 
         EditNightButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +83,15 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
             }
         });
 
-        final ArrayList<Event> events = new ArrayList<>();
+        Realm realm = Realm.getDefaultInstance();
+        final RealmResults<Event> ConfirmNight = realm.where(Night.class)
+                .equalTo("Id", nightId ).findFirst().getEvents();
+
         final IYelpList thisAct = this;
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Event event = (Event) events.get(position);
+                Event event = (Event) ConfirmNight.get(position);
                 RequestQueue queue = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
                 JsonObjectRequest myReq = MySingleton.getInstance(getBaseContext()).GetJsonRequestYelpId("https://api.yelp.com/v3/businesses/","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx",event.getYelpID(), thisAct);
                 MySingleton.getInstance(getBaseContext()).addToRequestQueue(myReq);
@@ -93,7 +101,7 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         layoutManager = new LinearLayoutManager(this);
         NightList.setLayoutManager(layoutManager);
 
-        confirmAdapter = new ConfirmNightAdapter(getBaseContext(), events, new Dialog(getBaseContext()), listener);
+        confirmAdapter = new ConfirmNightAdapter(getBaseContext(), ConfirmNight, new Dialog(getBaseContext()), listener);
         NightList.setAdapter(confirmAdapter);
     }
 }

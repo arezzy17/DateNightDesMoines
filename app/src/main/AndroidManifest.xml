@@ -17,13 +17,12 @@
         <activity android:name=".CreateUser" />
         <activity android:name=".TopRatedActivity">
 
-        </activity>
-        <activity android:name=".ConfirmNightActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ConfirmNightActivity"></activity>
         <activity
             android:name=".CreateNewNight"
             android:label="@string/title_activity_create_new_night"

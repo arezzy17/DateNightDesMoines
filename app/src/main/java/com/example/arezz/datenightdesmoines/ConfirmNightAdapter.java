@@ -13,16 +13,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import io.realm.RealmResults;
+
 
 public class ConfirmNightAdapter extends RecyclerView.Adapter<ConfirmNightAdapter.ConfirmNightViewHolder> {
     private Context context;
-    private ArrayList<Event> events;
+    private RealmResults<Event> events;
     Dialog ConfirmPopup;
     private RecyclerViewClickListener mListener;
 
 
 
-    public ConfirmNightAdapter(Context context, ArrayList<Event> dataSet, Dialog cPopup, RecyclerViewClickListener
+    public ConfirmNightAdapter(Context context, RealmResults<Event> dataSet, Dialog cPopup, RecyclerViewClickListener
                                clickListener) {
         this.context = context;
         this.events = dataSet;
