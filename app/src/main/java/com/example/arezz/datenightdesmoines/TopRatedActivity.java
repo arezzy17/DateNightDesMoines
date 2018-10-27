@@ -2,14 +2,11 @@ package com.example.arezz.datenightdesmoines;
 
 import android.app.Dialog;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-=======
 import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
->>>>>>> 4c17d868707f1b60943123340ab142a6b1625788
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
