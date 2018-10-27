@@ -16,6 +16,9 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreateUser" />
         <activity android:name=".TopRatedActivity">
+
+        </activity>
+        <activity android:name=".ConfirmNightActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
