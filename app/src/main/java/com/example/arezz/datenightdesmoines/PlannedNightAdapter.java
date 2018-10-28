@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import io.realm.RealmResults;
 
 public class PlannedNightAdapter extends RecyclerView.Adapter<PlannedNightAdapter.PlannedNightViewHolder>{
@@ -56,6 +59,16 @@ public class PlannedNightAdapter extends RecyclerView.Adapter<PlannedNightAdapte
     public void onBindViewHolder(PlannedNightAdapter.PlannedNightViewHolder holder, int position) {
         holder.dateNameView.setText(nights.get(position).getDateName());
         //holder.dateView.setText((CharSequence) nights.get(position).getDate());
-        holder.dateView.setText(nights.get(position).getDate().toString());
+        holder.dateView.setText(dateToString(nights.get(position).getDate()));
+    }
+
+    public String dateToString(Date date) {
+        if(date != null) {
+            SimpleDateFormat stringFormat = new SimpleDateFormat("MM/dd/yyyy");
+            String stringDate = stringFormat.format(date);
+            return stringDate;
+        } else {
+            return("");
+        }
     }
 }

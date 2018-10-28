@@ -3,7 +3,7 @@ import java.util.Date;
 
 import io.realm.RealmObject;
 
-public class Event extends RealmObject {
+public class Event extends RealmObject implements Comparable<Event>{
 
     public String eventType;
     public String eventName;
@@ -40,5 +40,14 @@ public class Event extends RealmObject {
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }
+
+    public int compareTo(Event e){
+        if(e.getEventType() != null && this.getEventType() != null) {
+            return e.getEventType().compareTo(this.getEventType());
+        }
+        else{
+            return -1;
+        }
     }
 }

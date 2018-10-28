@@ -48,8 +48,6 @@ public class CurrentNight extends AppCompatActivity {
         imageButton = (ImageButton) findViewById(R.id.current_image_button);
         homeButton = (ImageButton) findViewById(R.id.home_button);
 
-
-
         String user = pref.getString("username", null);
         final String nightId = getIntent().getStringExtra("nightId");
 
@@ -57,6 +55,8 @@ public class CurrentNight extends AppCompatActivity {
         final Night currentNight = realm.where(Night.class).equalTo("Id", nightId).findFirst();
         final RealmResults<Event> events = currentNight.getEvents();
 
+        nightName.setText(currentNight.getDateName());
+        
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +95,7 @@ public class CurrentNight extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
-                // intent.putExtra();
+                intent.putExtra("nightId", nightId);
                 startActivity(intent);
             }
         });
@@ -104,8 +104,8 @@ public class CurrentNight extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
-                // intent.putExtra();
                 saveImage(nightId);
+                intent.putExtra("nightId", nightId);
                 startActivity(intent);
             }
         });
@@ -114,7 +114,7 @@ public class CurrentNight extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
-                // intent.putExtra();
+                intent.putExtra("nightId", nightId);
                 saveImage(nightId);
                 startActivity(intent);
                 

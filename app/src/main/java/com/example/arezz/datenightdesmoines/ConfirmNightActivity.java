@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 import io.realm.Realm;
@@ -99,7 +100,10 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
 
         String date = dateToString(selectedNight.getDate());
         selectDate.setText(date);
+        selectDate.setOnEditorActionListener(new DoneOnEditorActionListener());
+
         NameNightText.setText(selectedNight.getDateName());
+        NameNightText.setOnEditorActionListener(new DoneOnEditorActionListener());
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +140,9 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         for (Event e: realmEvents) {
             events.add(e);
         }
+        Collections.sort(events);
+
+
         final ArrayList<Event> events2 = (ArrayList<Event>) events.clone();
         final IYelpList thisAct = this;
 
