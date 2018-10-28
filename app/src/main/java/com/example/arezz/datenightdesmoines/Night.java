@@ -17,7 +17,7 @@ public class Night extends RealmObject {
     private String dateName;
     private String imageId;
     private Date date;
-    private int rating;
+    private float rating;
 
 
     @LinkingObjects("night")
