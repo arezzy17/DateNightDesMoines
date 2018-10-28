@@ -25,6 +25,7 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
     Night currentNight;
     TabLayout.Tab currentTab;
     String currentId;
+    String currentName;
 
     public String getYelpId(){
         return currentId;
@@ -32,6 +33,15 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
     public void setYelpId(String id){
         currentId = id;
     }
+
+
+    public String getYelpName(){
+        return currentName;
+    }
+    public void setYelpName(String id){
+        currentName = id;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +54,17 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
         }
         else{
             SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-            String user = pref.getString("username", "");
+            final String user = pref.getString("username", "");
             if (user.equals("")) {
                 Toast.makeText(getBaseContext(), "Error accessing user", Toast.LENGTH_SHORT);
             }
-            currentNight = new Night();
-            currentNight.setUsername(user);
-            currentNight.setId(UUID.randomUUID().toString());
+
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
+                    currentNight = new Night();
+                    currentNight.setUsername(user);
+                    currentNight.setId(UUID.randomUUID().toString());
                     realm.copyToRealm(currentNight);
                 }
             });
@@ -120,11 +131,9 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
                         }
 
                         newEvent.setYelpID(currentId);
-
+                        newEvent.setEventName(currentName);
 
                         realm.copyToRealm(newEvent);
-
-                        finish();
                     }
                 });
             }
