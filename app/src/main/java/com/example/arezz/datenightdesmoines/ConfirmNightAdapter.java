@@ -87,14 +87,6 @@ public class ConfirmNightAdapter extends RecyclerView.Adapter<ConfirmNightAdapte
         ImageView picture = (ImageView) ConfirmPopup.findViewById(R.id.yelp_details_image);
         Picasso.get().load(yelpItem.getImageUrl()).into(picture);
 
-        Button addButton = (Button)ConfirmPopup.findViewById(R.id.yelp_details_add_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConfirmPopup.dismiss();
-            }
-        });
-
         Button closeButton = (Button)ConfirmPopup.findViewById(R.id.yelp_details_close_button);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override

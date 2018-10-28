@@ -2,6 +2,7 @@ package com.example.arezz.datenightdesmoines;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class PlannedNight extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planned_night);
+        final SharedPreferences pref = getBaseContext().getSharedPreferences("MyPref", MODE_PRIVATE);
 
         planned_night_list = (RecyclerView) findViewById(R.id.list_plannedNights);
         titleView = (TextView) findViewById(R.id.title_view_planned);
@@ -55,7 +57,7 @@ public class PlannedNight extends AppCompatActivity {
             public void onClick(View view, int position) {
                 Night night = (Night) plannedNights.get(position);
                 DateDetailPopup datePopup = new DateDetailPopup();
-                datePopup.showPopup(night, popup);
+                datePopup.showPopup(night, popup, pref, "Planned Nights");
             }
         };
 

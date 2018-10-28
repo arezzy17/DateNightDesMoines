@@ -15,18 +15,17 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import java.sql.Array;
 import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class DateDetailPopup extends Activity {
-    void showPopup(final Night rating, final Dialog popup) {
+    void showPopup(final Night rating, final Dialog popup, final SharedPreferences pref, final String navigatedFrom) {
         popup.setContentView(R.layout.top_rated_details_popup);
-        final SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        //final String navigatedFrom = getIntent().getStringExtra("navigated_from");
         Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Event> events = rating.getEvents();
+        RealmResults<Event> events = rating.getEvents();
 
         TextView dateName = (TextView) popup.findViewById(R.id.date_name);
         dateName.setText(rating.getDateName());
@@ -54,39 +53,34 @@ public class DateDetailPopup extends Activity {
             @Override
             public void onClick(View v) {
                 final String loggedInUser = pref.getString("username", null);
-                if(loggedInUser != null) {
+                if(navigatedFrom == "Top Rated" || navigatedFrom == "Past Nights") {
                     Realm realm = Realm.getDefaultInstance();
                     final String newNightId = UUID.randomUUID().toString();
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
-                            realm.executeTransaction(new Realm.Transaction() {
-                                @Override
-                                public void execute(Realm realm) {
-                                    Night newNight = rating;
-                                    newNight.setUsername(loggedInUser);
-                                    newNight.setId(newNightId);
-                                    Array<Event> eventList = events.ToList()
-
-                                    for(int i = 0; i < eventsList.size(); i++) {
-                                        Event newNightEvent = new Event();
-                                        newNightEvent = events[i];
-                                    }
-                                    realm.copyToRealm(newNight);
-                                }
-                            });
+                            Night newNight = rating;
+                            if(loggedInUser != null) {
+                                newNight.setUsername(loggedInUser);
+                            }
+                            newNight.setId(newNightId);
+                            realm.copyToRealm(newNight);
                         }
                     });
-                    popup.dismiss();
-                    Intent intent = new Intent(v.getContext(), ConfirmNightActivity.class);
-                    intent.putExtra("nightId", newNightId);
-                    v.getContext().startActivity(intent);
-                } else {
-                    popup.dismiss();
-                    Intent intent = new Intent(v.getContext(), LoginActivity.class);
-                    intent.putExtra("nightId", rating.getId());
-                    intent.putExtra("navigate_to", "Top Rated");
-                    v.getContext().startActivity(intent);
+                    if (loggedInUser != null) {
+                        popup.dismiss();
+                        Intent intent = new Intent(v.getContext(), ConfirmNightActivity.class);
+                        intent.putExtra("nightId", newNightId);
+                        v.getContext().startActivity(intent);
+                    } else {
+                        popup.dismiss();
+                        Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                        intent.putExtra("nightId", newNightId);
+                        intent.putExtra("navigate_to", "Top Rated");
+                        v.getContext().startActivity(intent);
+                    }
+                } else if (navigatedFrom == "Planned Nights") {
+
                 }
 
             }

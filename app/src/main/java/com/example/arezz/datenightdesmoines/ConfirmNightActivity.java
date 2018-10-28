@@ -62,6 +62,10 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         final String selectedNightId = getIntent().getStringExtra("nightId");
         final Night selectedNight = realm.where(Night.class).equalTo("Id", selectedNightId).findFirst();
 
+        String date = dateToString(selectedNight.getDate());
+        selectDate.setText(date);
+        NameNightText.setText(selectedNight.getDateName());
+
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +77,7 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         EditNightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveToRealm(selectedNightId);
                 Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
                 intent.putExtra("nightId", selectedNightId);
                 startActivity(intent);
@@ -84,26 +89,10 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         ConfirmNightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String dateName = NameNightText.getText().toString();
-                final Date validDate = constructDate(selectedNight);
-                if (validDate != null) {
-                    Realm realm = Realm.getDefaultInstance();
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            selectedNight.setDate(validDate);
-                            selectedNight.setDateName(dateName);
-
-                            realm.copyToRealm(selectedNight);
-
-                        }
-                    });
-                    Intent intent = new Intent(getBaseContext(), CurrentNight.class);
-                    intent.putExtra("nightId", selectedNightId);
-                    startActivity(intent);
-                } else {
-                    return;
-                }
+                saveToRealm(selectedNightId);
+                Intent intent = new Intent(getBaseContext(), CurrentNight.class);
+                intent.putExtra("nightId", selectedNightId);
+                startActivity(intent);
             }
         });
 
@@ -126,7 +115,7 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         NightList.setAdapter(confirmAdapter);
     }
 
-    public Date constructDate(Night night) {
+    public Date stringToDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         Date date = null;
         try {
@@ -136,5 +125,32 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
             Toast.makeText(this, "Please enter proper date: mm/dd/yyyy", Toast.LENGTH_SHORT).show();
         }
         return date;
+    }
+
+    public String dateToString(Date date) {
+        if(date != null) {
+            SimpleDateFormat stringFormat = new SimpleDateFormat("MM/dd/yyyy");
+            String stringDate = stringFormat.format(date);
+            return stringDate;
+        } else {
+            return("");
+        }
+    }
+
+    public void saveToRealm(String nightId) {
+        final String dateName = NameNightText.getText().toString();
+        final Date dateOfEvent = stringToDate();
+        Realm realm = Realm.getDefaultInstance();
+        final Night night = realm.where(Night.class).equalTo("Id", nightId).findFirst();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                night.setDate(dateOfEvent);
+                night.setDateName(dateName);
+
+                realm.copyToRealm(night);
+
+            }
+        });
     }
 }

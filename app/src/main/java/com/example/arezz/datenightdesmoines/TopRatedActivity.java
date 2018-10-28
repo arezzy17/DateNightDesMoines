@@ -72,8 +72,10 @@ public class TopRatedActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Night rating = (Night) topRatedNights.get(position);
+                Intent intent = new Intent();
+                //intent.putExtra("navigated_from", "Top Rated");
                 DateDetailPopup datePopup = new DateDetailPopup();
-                datePopup.showPopup(rating, popup);
+                datePopup.showPopup(rating, popup, pref, "Top Rated");
             }
         };
 

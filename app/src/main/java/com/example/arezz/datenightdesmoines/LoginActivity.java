@@ -58,23 +58,21 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(getBaseContext(), PastNightActivity.class);
                             startActivity(intent);
                         } else if (navigateTo.equals("Top Rated")) {
-                            final String newNightId = UUID.randomUUID().toString();
                             realm.executeTransaction(new Realm.Transaction() {
                                 @Override
                                 public void execute(Realm realm) {
                                     realm.executeTransaction(new Realm.Transaction() {
                                         @Override
                                         public void execute(Realm realm) {
-                                            Night newNight = realm.where(Night.class).equalTo("Id", nightId).findFirst();
-                                            newNight.setUsername(pref.getString("username", null));
-                                            newNight.setId(newNightId);
-                                            realm.copyToRealm(newNight);
+                                            Night night = realm.where(Night.class).equalTo("Id", nightId).findFirst();
+                                            night.setUsername(pref.getString("username", null));
+                                            realm.copyToRealm(night);
                                         }
                                     });
                                 }
                             });
                             Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
-                            intent.putExtra("nightId", newNightId);
+                            intent.putExtra("nightId", nightId);
                             startActivity(intent);
                         }
                     } else {
@@ -95,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), CreateUser.class);
                 intent.putExtra("navigate_to", navigateTo);
+                intent.putExtra("nightId", nightId);
                 startActivity(intent);
             }
         });
