@@ -63,14 +63,13 @@ public class TopRatedActivity extends AppCompatActivity {
 
         Realm realm = Realm.getDefaultInstance();
         final RealmResults<Night> topRatedNights = realm.where(Night.class)
-                .greaterThan("rating", 2).findAll();
+                .greaterThan("rating", 2).lessThan("date", new Date()).findAll();
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Night rating = (Night) topRatedNights.get(position);
                 Intent intent = new Intent();
-                //intent.putExtra("navigated_from", "Top Rated");
                 DateDetailPopup datePopup = new DateDetailPopup();
                 datePopup.showPopup(rating, popup, pref, "Top Rated");
             }
