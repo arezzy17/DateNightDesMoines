@@ -57,11 +57,11 @@ public class Night extends RealmObject {
 
     public void setDate(Date date) { this.date = date; }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
