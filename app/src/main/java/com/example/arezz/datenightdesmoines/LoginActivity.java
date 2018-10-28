@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.UUID;
+
 import io.realm.Realm;
 
 public class LoginActivity extends AppCompatActivity {
@@ -29,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         NewUserButton = (Button) findViewById(R.id.newuser_button_login);
 
         final String navigateTo = getIntent().getStringExtra("navigate_to");
-        final String selectedRating = getIntent().getStringExtra("rating");
+        final String nightId = getIntent().getStringExtra("nightId");
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(usernameTest != null) {
                     String passwordTest = usernameTest.getPassword();
                     if(passwordTest.equals(PasswordText.getText().toString())) {
-                        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",
+                        final SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",
                                 MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("username", usernameTest.getUsername());
@@ -56,8 +58,23 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(getBaseContext(), PastNightActivity.class);
                             startActivity(intent);
                         } else if (navigateTo.equals("Top Rated")) {
+                            final String newNightId = UUID.randomUUID().toString();
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    realm.executeTransaction(new Realm.Transaction() {
+                                        @Override
+                                        public void execute(Realm realm) {
+                                            Night newNight = realm.where(Night.class).equalTo("Id", nightId).findFirst();
+                                            newNight.setUsername(pref.getString("username", null));
+                                            newNight.setId(newNightId);
+                                            realm.copyToRealm(newNight);
+                                        }
+                                    });
+                                }
+                            });
                             Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
-                            intent.putExtra("rating", selectedRating);
+                            intent.putExtra("nightId", newNightId);
                             startActivity(intent);
                         }
                     } else {
@@ -77,7 +94,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), CreateUser.class);
-                intent.putExtra("rating", selectedRating);
                 intent.putExtra("navigate_to", navigateTo);
                 startActivity(intent);
             }

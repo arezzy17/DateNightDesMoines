@@ -72,13 +72,8 @@ public class TopRatedActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Night rating = (Night) topRatedNights.get(position);
-                //showPopup(rating);
                 DateDetailPopup datePopup = new DateDetailPopup();
                 datePopup.showPopup(rating, popup);
-//                Intent intent = new Intent(view.getContext(), LoginActivity.class);
-//                intent.putExtra("navigate_to", "Top Rated");
-//                intent.putExtra("rating",rating.getId());
-//                startActivity(intent);
             }
         };
 
@@ -161,8 +156,6 @@ public class TopRatedActivity extends AppCompatActivity {
                 realm.copyToRealm(night1);
 
                 event1.setEventType("Dinner");
-                event1.setStartTime(new Time(6,30,00));
-                event1.setEndTime(new Time(7,30,00));
                 event1.setNight(realm.where(Night.class).equalTo("Id", "1").findFirst());
                 realm.copyToRealm(event1);
 

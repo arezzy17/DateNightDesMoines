@@ -44,16 +44,16 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
         }
         else{
             SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-            String user = pref.getString("username", "");
+            final String user = pref.getString("username", "");
             if (user.equals("")) {
                 Toast.makeText(getBaseContext(), "Error accessing user", Toast.LENGTH_SHORT);
             }
-            currentNight = new Night();
-            currentNight.setUsername(user);
-            currentNight.setId(UUID.randomUUID().toString());
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
+                    currentNight = new Night();
+                    currentNight.setUsername(user);
+                    currentNight.setId(UUID.randomUUID().toString());
                     realm.copyToRealm(currentNight);
                 }
             });

@@ -55,9 +55,7 @@ public class Night extends RealmObject {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public void setDate(Date date) { this.date = date; }
 
     public int getRating() {
         return rating;
