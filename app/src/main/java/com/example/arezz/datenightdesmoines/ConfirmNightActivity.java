@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -40,17 +42,49 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
     private RecyclerView.Adapter confirmAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageButton homeButton;
-
+    private Dialog popup;
 
 
     public void setList(JSONObject obj){
         YelpItem displayItem = YelpItem.GetYelpItemFromBusinessJSON(obj);
+        ShowPopup(displayItem);
+    }
+    private void ShowPopup(YelpItem yelpItem) {
+        popup.setContentView(R.layout.yelp_details_popup);
 
+        TextView title=(TextView) popup.findViewById(R.id.yelp_details_name);
+        title.setText(yelpItem.getName());
+
+        TextView address =(TextView) popup.findViewById(R.id.yelp_details_address);
+        address.setText(yelpItem.getAddress());
+
+        TextView phone =(TextView) popup.findViewById(R.id.yelp_details_phone);
+        phone.setText(yelpItem.getDisplayPhone());
+
+        TextView price =(TextView) popup.findViewById(R.id.yelp_details_price);
+        price.setText(yelpItem.getPrice());
+
+        TextView rating =(TextView) popup.findViewById(R.id.yelp_details_rating);
+        rating.setText(yelpItem.getStars());
+
+        ImageView picture = (ImageView) popup.findViewById(R.id.yelp_details_image);
+        Picasso.get().load(yelpItem.getImageUrl()).into(picture);
+
+        Button closeButton = (Button)popup.findViewById(R.id.yelp_details_close_button);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+
+        popup.show();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_night);
+        popup = new Dialog(this);
 
         NightList = (RecyclerView) findViewById(R.id.night_list_confirm);
         NameNightText = (EditText) findViewById(R.id.name_night_confirm);
@@ -104,6 +138,7 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         }
         final ArrayList<Event> events2 = (ArrayList<Event>) events.clone();
         final IYelpList thisAct = this;
+
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
