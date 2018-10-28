@@ -23,6 +23,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class DateDetailPopup extends Activity {
+
     void showPopup(final Night rating, final Dialog popup, final SharedPreferences pref, final String navigatedFrom) {
         popup.setContentView(R.layout.top_rated_details_popup);
         //final String navigatedFrom = getIntent().getStringExtra("navigated_from");
