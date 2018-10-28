@@ -36,7 +36,7 @@ public class DateDetailPopup extends Activity {
         ImageView datePicture = (ImageView) popup.findViewById(R.id.date_picture);
         if(rating.getImageId() != null) {
             Image image = realm.where(Image.class).equalTo("id", rating.getImageId()).findFirst();
-            Bitmap bmp = BitmapFactory.decodeByteArray(image.getImageBitmap(),0,image.getId().length());
+            Bitmap bmp = BitmapFactory.decodeByteArray(image.getImageBitmap(),0,image.getImageBitmap().length);
             datePicture.setImageBitmap(bmp);
         }
 
