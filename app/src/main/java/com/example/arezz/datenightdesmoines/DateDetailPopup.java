@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import io.realm.Realm;
@@ -96,7 +97,17 @@ public class DateDetailPopup extends Activity {
                         v.getContext().startActivity(intent);
                     }
                 } else if (navigatedFrom == "Planned Nights") {
-
+                    Date date = new Date();
+                    if(rating.getDate().getDay() == date.getDay() && rating.getDate().getYear() == date.getYear()
+                            && rating.getDate().getMonth() == date.getMonth()) {
+                        Intent intent = new Intent(v.getContext(), CurrentNight.class);
+                        intent.putExtra("nightId", rating.getId());
+                        v.getContext().startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(v.getContext(), ConfirmNightActivity.class);
+                        intent.putExtra("nightId", rating.getId());
+                        v.getContext().startActivity(intent);
+                    }
                 }
 
             }

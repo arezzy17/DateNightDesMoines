@@ -50,7 +50,9 @@ public class PlannedNight extends AppCompatActivity {
         });
 
         Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Night> plannedNights = realm.where(Night.class).findAll();
+        Date date = new Date();
+        Array
+        final RealmResults<Night> plannedNights = realm.where(Night.class).greaterThanOrEqualTo("date", date).findAll();
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override

@@ -52,10 +52,6 @@ public class PastNightActivity extends AppCompatActivity {
                 //intent.putExtra("navigated_from", "Past Nights");
                 DateDetailPopup datePopup = new DateDetailPopup();
                 datePopup.showPopup(rating, popup, pref, "Past Nights");
-//                Intent intent = new Intent(view.getContext(), LoginActivity.class);
-//                intent.putExtra("navigate_to", "Top Rated");
-//                intent.putExtra("rating",rating.getId());
-//                startActivity(intent);
             }
         };
 
