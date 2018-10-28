@@ -76,7 +76,6 @@ public class CurrentNight extends AppCompatActivity {
             public void onClick(View view, int position) {
                 Event event = (Event) events.get(position);
                 Intent intent = new Intent(view.getContext(), LoginActivity.class); // navigate to details card once it's created
-                intent.putExtra("event",(Serializable)event);
                 startActivity(intent);
             }
         };
