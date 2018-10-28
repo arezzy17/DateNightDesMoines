@@ -116,7 +116,9 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         EditNightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToRealm(selectedNightId);
+                if(!saveToRealm(selectedNightId, false)){
+                    return;
+                }
                 Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
                 intent.putExtra("nightId", selectedNightId);
                 startActivity(intent);
@@ -128,7 +130,9 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         ConfirmNightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveToRealm(selectedNightId);
+                if(!saveToRealm(selectedNightId, true)){
+                    return;
+                }
                 Intent intent = new Intent(getBaseContext(), CurrentNight.class);
                 intent.putExtra("nightId", selectedNightId);
                 startActivity(intent);
@@ -170,7 +174,7 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
             date = (Date)formatter.parse(selectDate.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Please enter proper date: mm/dd/yyyy", Toast.LENGTH_SHORT).show();
+
         }
         return date;
     }
@@ -185,9 +189,13 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
         }
     }
 
-    public void saveToRealm(String nightId) {
+    public boolean saveToRealm(String nightId, boolean checkVal) {
         final String dateName = NameNightText.getText().toString();
         final Date dateOfEvent = stringToDate();
+        if(checkVal && (dateName == null || dateOfEvent== null || dateName.length() < 1)){
+            Toast.makeText(this, "Name and date are required.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         Realm realm = Realm.getDefaultInstance();
         final Night night = realm.where(Night.class).equalTo("Id", nightId).findFirst();
         realm.executeTransaction(new Realm.Transaction() {
@@ -200,5 +208,6 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
 
             }
         });
+        return true;
     }
 }

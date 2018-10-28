@@ -6,8 +6,8 @@
     android:layout_height="65dp">
 
     <TextView
-        android:id="@+id/event_type_confirm"
-        android:layout_width="130dp"
+        android:id="@+id/event_name_confirm"
+        android:layout_width="240dp"
         android:layout_height="65dp"
         android:layout_marginRight="20dp"
         android:fontFamily="@font/roboto_medium"
@@ -15,12 +15,12 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/event_name_confirm"
+        app:layout_constraintEnd_toStartOf="@+id/event_type_confirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/event_name_confirm"
+        android:id="@+id/event_type_confirm"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:fontFamily="@font/roboto_medium"
@@ -29,7 +29,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/event_type_confirm"
+        app:layout_constraintStart_toEndOf="@+id/event_name_confirm"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
