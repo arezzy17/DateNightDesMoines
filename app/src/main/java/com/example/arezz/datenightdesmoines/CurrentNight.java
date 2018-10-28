@@ -2,6 +2,8 @@ package com.example.arezz.datenightdesmoines;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,7 +26,9 @@ public class CurrentNight extends AppCompatActivity {
     private Button addEventButton;
     private Button reviewButton;
     private Button completeButton;
+    private ImageButton imageButton;
     private ImageButton homeButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,10 @@ public class CurrentNight extends AppCompatActivity {
         addEventButton = (Button) findViewById(R.id.add_event_button);
         reviewButton = (Button) findViewById(R.id.review_button);
         completeButton = (Button) findViewById(R.id.complete_button);
+        imageButton = (ImageButton) findViewById(R.id.current_image_button);
         homeButton = (ImageButton) findViewById(R.id.home_button);
+
+
 
         String user = pref.getString("username", null);
         String nightId = getIntent().getStringExtra("nightId");
@@ -46,6 +53,16 @@ public class CurrentNight extends AppCompatActivity {
         final Night currentNight = realm.where(Night.class).equalTo("Id", nightId).findFirst();
         final RealmResults<Event> events = currentNight.getEvents();
 
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, 1);
+                }
+            }
+        });
+        
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +111,17 @@ public class CurrentNight extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
                 // intent.putExtra();
                 startActivity(intent);
+                
             }
         });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1 && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageButton.setImageBitmap(imageBitmap);
+        }
     }
 }
