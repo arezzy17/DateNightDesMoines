@@ -30,15 +30,16 @@
         app:layout_constraintBottom_toTopOf="@+id/edit_night_button_confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_night_confirm" />
+        app:layout_constraintTop_toBottomOf="@+id/name_night_confirm"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/name_night_confirm"
         android:layout_width="146dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:fontFamily="@font/roboto_medium"
         android:inputType="textPersonName"
@@ -90,14 +91,14 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="146dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Name Your Night:"
         android:textColor="@color/colorDarkFont"
-        android:textSize="15sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
@@ -105,14 +106,14 @@
     <TextView
         android:id="@+id/textView7"
         android:layout_width="150dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Select Date of Event:"
         android:textColor="@color/colorDarkFont"
-        android:textSize="15sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
@@ -123,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
@@ -133,6 +134,7 @@
         android:textColor="@color/colorDarkFont"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/name_night_confirm"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
