@@ -106,6 +106,9 @@ public class YelpItemAdapter extends RecyclerView.Adapter<YelpItemAdapter.YelpIt
         TextView price =(TextView) popup.findViewById(R.id.yelp_details_price);
         price.setText(yelpItem.getPrice());
 
+        TextView rating =(TextView) popup.findViewById(R.id.yelp_details_rating);
+        rating.setText(yelpItem.getStars());
+
         ImageView picture = (ImageView) popup.findViewById(R.id.yelp_details_image);
         Picasso.get().load(yelpItem.getImageUrl()).into(picture);
 
