@@ -1,5 +1,6 @@
 package com.example.arezz.datenightdesmoines;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import io.realm.RealmResults;
 public class CreateNewNight extends AppCompatActivity implements IYelpId {
     Button addButton;
     Button nextButton;
+    private ImageButton homeButton;
 
     Night currentNight;
     TabLayout.Tab currentTab;
@@ -110,6 +113,15 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
         addButton = (Button)findViewById(R.id.create_new_add_button);
         nextButton =(Button)findViewById(R.id.create_new_next_button);
 
+        homeButton = (ImageButton) findViewById(R.id.home_button);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
+                startActivity(intent);
+            }
+        });
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
