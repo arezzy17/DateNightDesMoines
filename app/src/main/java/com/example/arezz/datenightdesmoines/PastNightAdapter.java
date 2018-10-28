@@ -15,10 +15,10 @@ import io.realm.RealmResults;
 
 public class PastNightAdapter extends RecyclerView.Adapter<PastNightAdapter.PastNightsViewHolder> {
     private Context context;
-    private RealmResults<Night> nights;
+    private ArrayList<Night> nights;
     private RecyclerViewClickListener mListener;
 
-    public PastNightAdapter(Context context, RealmResults<Night> dataset, RecyclerViewClickListener
+    public PastNightAdapter(Context context, ArrayList<Night> dataset, RecyclerViewClickListener
             clickListener) {
         this.context = context;
         this.nights = dataset;
