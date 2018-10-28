@@ -42,7 +42,10 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:text="Events:" />
+            android:fontFamily="@font/roboto_medium"
+            android:text="Events:"
+            android:textColor="@color/colorDarkFont"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout

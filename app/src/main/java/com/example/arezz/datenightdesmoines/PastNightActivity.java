@@ -2,6 +2,7 @@ package com.example.arezz.datenightdesmoines;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ public class PastNightActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_night);
+        final SharedPreferences pref = getBaseContext().getSharedPreferences("MyPref", MODE_PRIVATE);
 
         pastNightsList = (RecyclerView) findViewById(R.id.past_nights_list);
         homeButton = (ImageButton) findViewById(R.id.home_button);
@@ -46,8 +48,10 @@ public class PastNightActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Night rating = (Night) pastNights.get(position);
+                Intent intent = new Intent();
+                //intent.putExtra("navigated_from", "Past Nights");
                 DateDetailPopup datePopup = new DateDetailPopup();
-                datePopup.showPopup(rating, popup);
+                datePopup.showPopup(rating, popup, pref, "Past Nights");
 //                Intent intent = new Intent(view.getContext(), LoginActivity.class);
 //                intent.putExtra("navigate_to", "Top Rated");
 //                intent.putExtra("rating",rating.getId());

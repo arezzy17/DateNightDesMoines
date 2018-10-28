@@ -40,11 +40,10 @@ public class CurrentNight extends AppCompatActivity {
         homeButton = (ImageButton) findViewById(R.id.home_button);
 
         String user = pref.getString("username", null);
-        String nightId = getIntent().getStringExtra("nightID");
+        String nightId = getIntent().getStringExtra("nightId");
 
         Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Night> nights = realm.where(Night.class).equalTo("Id", nightId).findAll();
-        Night currentNight = (Night) nights.get(0);
+        final Night currentNight = realm.where(Night.class).equalTo("Id", nightId).findFirst();
         final RealmResults<Event> events = currentNight.getEvents();
 
         homeButton.setOnClickListener(new View.OnClickListener() {
