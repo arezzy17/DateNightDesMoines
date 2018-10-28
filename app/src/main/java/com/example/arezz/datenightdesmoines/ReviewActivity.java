@@ -39,7 +39,6 @@ public class ReviewActivity extends AppCompatActivity {
         nightName = (TextView) findViewById(R.id.night_name_review);
         nightImage = (ImageView) findViewById(R.id.night_image);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar_review);
-        homeButton = (ImageButton) findViewById(R.id.home_button);
 
         Realm realm = Realm.getDefaultInstance();
         final String nightId = getIntent().getStringExtra("nightId");
@@ -48,14 +47,7 @@ public class ReviewActivity extends AppCompatActivity {
         nightName.setText(night.getDateName());
 
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
-                saveRating(nightId);
-                startActivity(intent);
-            }
-        });
+
 
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +73,8 @@ public class ReviewActivity extends AppCompatActivity {
             @Override
             public void execute(Realm realm) {
                 Night night = realm.where(Night.class).equalTo("Id", nightId).findFirst();
-                Float ratingNumber = ratingBar.getRating();
-                night.setRating(ratingNumber);
+                float ratingNumber = ratingBar.getRating();
+                night.setRating((int)Math.floor(ratingNumber));
                 realm.copyToRealm(night);
             }
         });

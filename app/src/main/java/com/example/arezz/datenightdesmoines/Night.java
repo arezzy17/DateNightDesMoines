@@ -17,7 +17,7 @@ public class Night extends RealmObject {
     private String dateName;
     private String imageId;
     private Date date;
-    private float rating;
+    private int rating;
 
 
     @LinkingObjects("night")
@@ -57,11 +57,11 @@ public class Night extends RealmObject {
 
     public void setDate(Date date) { this.date = date; }
 
-    public float getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
