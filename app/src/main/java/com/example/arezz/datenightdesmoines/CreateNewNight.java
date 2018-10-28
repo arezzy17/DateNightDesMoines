@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.UUID;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class CreateNewNight extends AppCompatActivity implements IYelpId {
     Button addButton;
@@ -56,7 +57,7 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
             SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
             final String user = pref.getString("username", "");
             if (user.equals("")) {
-                Toast.makeText(getBaseContext(), "Error accessing user", Toast.LENGTH_SHORT);
+                Toast.makeText(getBaseContext(), "Error accessing user", Toast.LENGTH_SHORT).show();
             }
 
             realm.executeTransaction(new Realm.Transaction() {
@@ -114,6 +115,14 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
             public void onClick(View v) {
                 Realm realm = Realm.getDefaultInstance();
 
+                RealmResults<Event> curEvents = realm.where(Night.class).equalTo("Id",currentNight.getId()).findFirst().getEvents();
+                for (Event e:curEvents) {
+                    if(e.getYelpID().equals(currentId)){
+                        Toast.makeText(getBaseContext(), "You already had " + currentName + " in your night!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
@@ -136,6 +145,8 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
                         realm.copyToRealm(newEvent);
                     }
                 });
+
+                Toast.makeText(getBaseContext(), "Successfully added " + currentName + " to your night!", Toast.LENGTH_SHORT).show();
             }
         });
 

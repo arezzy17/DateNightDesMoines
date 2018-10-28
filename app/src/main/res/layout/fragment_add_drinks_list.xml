@@ -10,13 +10,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/search_button_drinks"
             android:layout_width="20dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_search_category_default" />
@@ -24,7 +24,7 @@
         <EditText
             android:id="@+id/drinks_search_bar"
             android:layout_width="300dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:ems="10"
             android:hint="Enter search terms or locations"
             android:imeOptions="actionDone"
@@ -38,6 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="50dp" />
 
 </FrameLayout>

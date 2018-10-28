@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -30,6 +32,8 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter yelpItemAdapter;
     private ArrayList<YelpItem> entertainmentItems;
+    private EditText searchBar;
+    private ImageButton searchButton;
     public AddEntertainmentListFragment() {
         // Required empty public constructor
     }
@@ -43,6 +47,8 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
 
         entertainmentItems = new ArrayList<YelpItem>();
         entertainmentList = (RecyclerView) view.findViewById(R.id.entertainment_list);
+        searchBar = (EditText) view.findViewById(R.id.entertainment_search_bar);
+        searchButton = (ImageButton) view.findViewById(R.id.entertainment_button_drinks);
         ((Button)this.getActivity().findViewById(R.id.create_new_add_button)).setVisibility(View.INVISIBLE);
         CreateNewFragmentHelpers.clearColoredElements(entertainmentItems, entertainmentList);
 
@@ -50,10 +56,20 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
         RequestQueue queue = MySingleton.getInstance(getContext().getApplicationContext()).getRequestQueue();
         String[] params = {"categories", "sort_by"};
         String[] paramVals = {"arts", "rating"};
-        JsonObjectRequest myReq = MySingleton.getInstance(getContext()).GetJsonRequestFromUrl("https://api.yelp.com/v3/businesses/search","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx","Des Moines, IA", params, paramVals, this );
-        // Add a request (in this example, called stringRequest) to your RequestQueue.
+        SubmitRequest(params, paramVals);
 
-        MySingleton.getInstance(getContext()).addToRequestQueue(myReq);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String[] params = {"categories", "sort_by", "term"};
+                String[] paramVals = {"arts", "rating", searchBar.getText().toString().trim()};
+                SubmitRequest(params, paramVals);
+            }
+        });
+
+        searchBar.setOnEditorActionListener(new DoneOnEditorActionListener());
 
         layoutManager = new LinearLayoutManager(getContext());
         entertainmentList.setLayoutManager(layoutManager);
@@ -86,5 +102,12 @@ public class AddEntertainmentListFragment extends Fragment implements IYelpList 
 
         yelpItemAdapter = new YelpItemAdapter(getContext(), entertainmentItems,new Dialog(this.getContext()), listener);
         entertainmentList.setAdapter(yelpItemAdapter);
+    }
+
+    public void SubmitRequest(String[] params, String[] paramVals){
+        RequestQueue queue = MySingleton.getInstance(getContext().getApplicationContext()).getRequestQueue();
+
+        JsonObjectRequest myReq = MySingleton.getInstance(getContext()).GetJsonRequestFromUrl("https://api.yelp.com/v3/businesses/search","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx","Des Moines, IA", params, paramVals, this );
+        MySingleton.getInstance(getContext()).addToRequestQueue(myReq);
     }
 }

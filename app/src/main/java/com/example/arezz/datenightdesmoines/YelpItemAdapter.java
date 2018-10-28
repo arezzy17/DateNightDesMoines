@@ -109,40 +109,6 @@ public class YelpItemAdapter extends RecyclerView.Adapter<YelpItemAdapter.YelpIt
         ImageView picture = (ImageView) popup.findViewById(R.id.yelp_details_image);
         Picasso.get().load(yelpItem.getImageUrl()).into(picture);
 
-        Button addButton = (Button)popup.findViewById(R.id.yelp_details_add_button);
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Realm realm = Realm.getDefaultInstance();
-
-                /*realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        Event newEvent = new Event();
-                        newEvent.setNight(realm.where(Night.class).equalTo("Id",currentNight.getId()).findFirst());
-
-                        if(currentTab.getText().toString().toLowerCase().equals("food")){
-                            newEvent.setEventType("food");
-                        }
-                        else if(currentTab.getText().toString().toLowerCase().equals("entertainment")){
-                            newEvent.setEventType("entertainment");
-                        }
-                        else {
-                            newEvent.setEventType("drinks");
-                        }
-
-                        newEvent.setYelpID(currentId);
-
-
-                        realm.copyToRealm(newEvent);
-
-                        finish();
-                    }
-                });popup.dismiss();*/
-            }
-        });
-
         Button closeButton = (Button)popup.findViewById(R.id.yelp_details_close_button);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
