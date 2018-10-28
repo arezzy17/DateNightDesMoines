@@ -76,7 +76,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:text="Register Your Account"
         android:textAppearance="@android:style/TextAppearance.WindowTitle"
         android:textColor="@android:color/background_light"

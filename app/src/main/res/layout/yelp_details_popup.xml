@@ -98,11 +98,11 @@
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hours"
+            android:text="Rating"
             android:textColor="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/yelp_details_hours"
+            android:id="@+id/yelp_details_rating"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -114,15 +114,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/yelp_details_add_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="Add"
-            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/yelp_details_close_button"

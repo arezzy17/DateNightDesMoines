@@ -55,6 +55,7 @@ public class PlannedNightAdapter extends RecyclerView.Adapter<PlannedNightAdapte
     @Override
     public void onBindViewHolder(PlannedNightAdapter.PlannedNightViewHolder holder, int position) {
         holder.dateNameView.setText(nights.get(position).getDateName());
+        //holder.dateView.setText((CharSequence) nights.get(position).getDate());
         holder.dateView.setText(nights.get(position).getDate().toString());
     }
 }

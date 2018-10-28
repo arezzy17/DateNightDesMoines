@@ -29,7 +29,7 @@ public class CreateUser extends AppCompatActivity {
         passwordField = (EditText) findViewById(R.id.password_user);
         username = (EditText) findViewById(R.id.username_user);
         final String navigateTo = getIntent().getStringExtra("navigate_to");
-        final String selectedRating = getIntent().getStringExtra("rating");
+        final String nightId = getIntent().getStringExtra("nightId");
 
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,7 @@ public class CreateUser extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",
+                final SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref",
                         MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putString("username", username.getText().toString());
@@ -79,8 +79,21 @@ public class CreateUser extends AppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), PastNightActivity.class);
                     startActivity(intent);
                 } else if (navigateTo.equals("Top Rated")) {
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    Night night = realm.where(Night.class).equalTo("Id", nightId).findFirst();
+                                    night.setUsername(pref.getString("username", null));
+                                    realm.copyToRealm(night);
+                                }
+                            });
+                        }
+                    });
                     Intent intent = new Intent(getBaseContext(), CreateNewNight.class);
-                    intent.putExtra("rating", selectedRating);
+                    intent.putExtra("nightId", nightId);
                     startActivity(intent);
                 }
 

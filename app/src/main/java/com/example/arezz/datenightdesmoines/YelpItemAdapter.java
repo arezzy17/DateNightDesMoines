@@ -2,6 +2,7 @@ package com.example.arezz.datenightdesmoines;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,18 +22,25 @@ import org.w3c.dom.Text;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.UUID;
+
+import io.realm.Realm;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class YelpItemAdapter extends RecyclerView.Adapter<YelpItemAdapter.YelpItemViewHolder> {
     private Context context;
     private ArrayList<YelpItem> yelpItems;
     Dialog popup;
     private RecyclerViewClickListener mListener;
+    private String currentNightId;
 
     public YelpItemAdapter(Context context, ArrayList<YelpItem> dataSet, Dialog p, RecyclerViewClickListener r) {
         this.context = context;
         this.yelpItems = dataSet;
         this.popup = p;
         mListener = r;
+        //currentNightId = cNight;
     }
 
     public static class YelpItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -97,16 +106,11 @@ public class YelpItemAdapter extends RecyclerView.Adapter<YelpItemAdapter.YelpIt
         TextView price =(TextView) popup.findViewById(R.id.yelp_details_price);
         price.setText(yelpItem.getPrice());
 
+        TextView rating =(TextView) popup.findViewById(R.id.yelp_details_rating);
+        rating.setText(yelpItem.getStars());
+
         ImageView picture = (ImageView) popup.findViewById(R.id.yelp_details_image);
         Picasso.get().load(yelpItem.getImageUrl()).into(picture);
-
-        Button addButton = (Button)popup.findViewById(R.id.yelp_details_add_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup.dismiss();
-            }
-        });
 
         Button closeButton = (Button)popup.findViewById(R.id.yelp_details_close_button);
         closeButton.setOnClickListener(new View.OnClickListener() {
