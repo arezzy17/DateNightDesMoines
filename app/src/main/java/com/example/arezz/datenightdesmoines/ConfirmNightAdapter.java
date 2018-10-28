@@ -32,12 +32,14 @@ public class ConfirmNightAdapter extends RecyclerView.Adapter<ConfirmNightAdapte
 
     public static class ConfirmNightViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView eventNameView;
+        public TextView eventTypeView;
 
         private RecyclerViewClickListener mListener;
 
         public ConfirmNightViewHolder(View v, RecyclerViewClickListener listener) {
             super(v);
             eventNameView = v.findViewById(R.id.event_name_confirm);
+            eventTypeView = v.findViewById(R.id.event_type_confirm);
 
             mListener = listener;
             v.setOnClickListener(this);
@@ -66,7 +68,7 @@ public class ConfirmNightAdapter extends RecyclerView.Adapter<ConfirmNightAdapte
         @Override
         public void onBindViewHolder(ConfirmNightViewHolder holder, int position) {
             holder.eventNameView.setText(events.get(position).getEventName());
-
+            holder.eventTypeView.setText(events.get(position).getEventType());
         }
 
         private void ShowPopup(YelpItem yelpItem) {
