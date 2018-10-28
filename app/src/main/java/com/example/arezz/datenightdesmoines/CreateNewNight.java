@@ -62,7 +62,6 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
             if (user.equals("")) {
                 Toast.makeText(getBaseContext(), "Error accessing user", Toast.LENGTH_SHORT).show();
             }
-
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {

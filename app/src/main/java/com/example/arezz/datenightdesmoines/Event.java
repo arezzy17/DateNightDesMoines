@@ -5,8 +5,6 @@ import io.realm.RealmObject;
 
 public class Event extends RealmObject {
 
-    public Date startTime;
-    public Date endTime;
     public String eventType;
     public String eventName;
     private Night night;
@@ -26,22 +24,6 @@ public class Event extends RealmObject {
 
     public void setYelpID(String yelpID) {
         this.yelpID = yelpID;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
     }
 
     public String getEventType() {
