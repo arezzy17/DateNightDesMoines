@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import io.realm.Realm;
@@ -55,16 +57,29 @@ public class DateDetailPopup extends Activity {
                 final String loggedInUser = pref.getString("username", null);
                 if(navigatedFrom == "Top Rated" || navigatedFrom == "Past Nights") {
                     Realm realm = Realm.getDefaultInstance();
+                    final RealmResults<Event> events = realm.where(Night.class).equalTo("Id",rating.getId()).findFirst().getEvents();
                     final String newNightId = UUID.randomUUID().toString();
                     realm.executeTransaction(new Realm.Transaction() {
                         @Override
                         public void execute(Realm realm) {
-                            Night newNight = rating;
+                            Night newNight = new Night();
+                            newNight.setId(newNightId);
+                            newNight.setDateName(rating.getDateName());
+                            newNight.setDate(rating.getDate());
                             if(loggedInUser != null) {
                                 newNight.setUsername(loggedInUser);
                             }
-                            newNight.setId(newNightId);
                             realm.copyToRealm(newNight);
+
+                            for (Event e: events) {
+                                Event newEvent = new Event();
+                                newEvent.setEventType(e.getEventType());
+                                newEvent.setEventName(e.getEventName());
+                                newEvent.setYelpID(e.getYelpID());
+                                newEvent.setNight(realm.where(Night.class).equalTo("Id", newNightId).findFirst());
+
+                                realm.copyToRealm(newEvent);
+                            }
                         }
                     });
                     if (loggedInUser != null) {

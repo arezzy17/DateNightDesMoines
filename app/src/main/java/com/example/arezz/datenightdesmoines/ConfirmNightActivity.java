@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class ConfirmNightActivity extends AppCompatActivity implements IYelpList{
 
@@ -96,12 +97,17 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
             }
         });
 
-        final ArrayList<Event> events = new ArrayList<>();
+        ArrayList<Event> events = new ArrayList<>();
+        RealmResults<Event> realmEvents = realm.where(Night.class).equalTo("Id", selectedNightId).findFirst().getEvents();
+        for (Event e: realmEvents) {
+            events.add(e);
+        }
+        final ArrayList<Event> events2 = (ArrayList<Event>) events.clone();
         final IYelpList thisAct = this;
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Event event = (Event) events.get(position);
+                Event event = (Event) events2.get(position);
                 RequestQueue queue = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
                 JsonObjectRequest myReq = MySingleton.getInstance(getBaseContext()).GetJsonRequestYelpId("https://api.yelp.com/v3/businesses/","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx",event.getYelpID(), thisAct);
                 MySingleton.getInstance(getBaseContext()).addToRequestQueue(myReq);
