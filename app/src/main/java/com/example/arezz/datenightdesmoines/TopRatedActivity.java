@@ -25,6 +25,8 @@ import org.w3c.dom.Text;
 import java.io.Serializable;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -62,8 +64,9 @@ public class TopRatedActivity extends AppCompatActivity {
         LogOutButton = (ImageButton) findViewById(R.id.log_out_button);
 
         Realm realm = Realm.getDefaultInstance();
+        Date todayWithoutTime = dateWithoutTime();
         final RealmResults<Night> topRatedNights = realm.where(Night.class)
-                .greaterThan("rating", 2).lessThan("date", new Date()).findAll();
+                .greaterThan("rating", 2).lessThan("date", todayWithoutTime).findAll();
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
@@ -135,5 +138,17 @@ public class TopRatedActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "User logged out", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public Date dateWithoutTime()  {
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        Date today = new Date();
+        Date todayWithoutTime = null;
+        try {
+            todayWithoutTime = formatter.parse(formatter.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return todayWithoutTime;
     }
 }
