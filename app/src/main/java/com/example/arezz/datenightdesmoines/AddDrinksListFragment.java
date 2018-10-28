@@ -64,8 +64,7 @@ public class AddDrinksListFragment extends Fragment implements IYelpList {
         RequestQueue queue = MySingleton.getInstance(getContext().getApplicationContext()).getRequestQueue();
         String[] params = {"categories", "sort_by"};
         String[] paramVals = {"bars", "rating"};
-        JsonObjectRequest myReq = MySingleton.getInstance(getContext()).GetJsonRequestFromUrl("https://api.yelp.com/v3/businesses/search","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx","Des Moines, IA", params, paramVals, this );
-        MySingleton.getInstance(getContext()).addToRequestQueue(myReq);
+        SubmitRequest(params, paramVals);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,15 +120,4 @@ public class AddDrinksListFragment extends Fragment implements IYelpList {
         MySingleton.getInstance(getContext()).addToRequestQueue(myReq);
     }
 }
-//from http://tonylukasavage.com/blog/2011/06/02/android-quick-tip--edittext-with-done-button-that-closes-the-keyboard/
-class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
-    @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-            InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            return true;
-        }
-        return false;
-    }
-}
+
