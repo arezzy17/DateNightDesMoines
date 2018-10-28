@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/event_type_current"
-        android:layout_width="161dp"
+        android:layout_width="122dp"
         android:layout_height="41dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -17,8 +17,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
+        android:textColor="@color/colorDarkFont"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/event_name_current"
@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/event_name_current"
-        android:layout_width="161dp"
+        android:layout_width="224dp"
         android:layout_height="41dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
@@ -34,7 +34,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
