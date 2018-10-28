@@ -3,6 +3,7 @@ package com.example.arezz.datenightdesmoines;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.util.UUID;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -47,9 +51,9 @@ public class CurrentNight extends AppCompatActivity {
 
 
         String user = pref.getString("username", null);
-        String nightId = getIntent().getStringExtra("nightId");
+        final String nightId = getIntent().getStringExtra("nightId");
 
-        Realm realm = Realm.getDefaultInstance();
+        final Realm realm = Realm.getDefaultInstance();
         final Night currentNight = realm.where(Night.class).equalTo("Id", nightId).findFirst();
         final RealmResults<Event> events = currentNight.getEvents();
 
@@ -67,6 +71,7 @@ public class CurrentNight extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
+                saveImage(nightId);
                 startActivity(intent);
             }
         });
@@ -100,6 +105,7 @@ public class CurrentNight extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), ReviewActivity.class);
                 // intent.putExtra();
+                saveImage(nightId);
                 startActivity(intent);
             }
         });
@@ -109,6 +115,7 @@ public class CurrentNight extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
                 // intent.putExtra();
+                saveImage(nightId);
                 startActivity(intent);
                 
             }
@@ -122,5 +129,26 @@ public class CurrentNight extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageButton.setImageBitmap(imageBitmap);
         }
+    }
+
+    public void saveImage(final String nightId) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Image image = new Image();
+                image.setId(UUID.randomUUID().toString());
+                Night night = realm.where(Night.class).equalTo("Id", nightId).findFirst();
+                BitmapDrawable imageBitmap = (BitmapDrawable) imageButton.getDrawable();
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                imageBitmap.getBitmap().compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] imageinBytes = baos.toByteArray();
+                image.setImageBitmap(imageinBytes);
+                night.setImageId(image.getId());
+                realm.copyToRealm(image);
+                realm.copyToRealm(night);
+            }
+        });
     }
 }
