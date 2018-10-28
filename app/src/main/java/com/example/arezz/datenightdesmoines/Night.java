@@ -15,6 +15,7 @@ public class Night extends RealmObject {
     private String Id;
     private String Username;
     private String dateName;
+    private String imageId;
     private Date date;
     private int rating;
 
@@ -46,14 +47,15 @@ public class Night extends RealmObject {
         this.dateName = dateName;
     }
 
+    public String getImageId() { return imageId; }
+
+    public void setImageId(String imageId) { this.imageId = imageId; }
+
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
+    public void setDate(Date date) { this.date = date; }
 
     public int getRating() {
         return rating;

@@ -27,6 +27,8 @@ public class CurrentNight extends AppCompatActivity {
     private Button reviewButton;
     private Button completeButton;
     private ImageButton imageButton;
+    private ImageButton homeButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +42,15 @@ public class CurrentNight extends AppCompatActivity {
         reviewButton = (Button) findViewById(R.id.review_button);
         completeButton = (Button) findViewById(R.id.complete_button);
         imageButton = (ImageButton) findViewById(R.id.current_image_button);
+        homeButton = (ImageButton) findViewById(R.id.home_button);
+
+
 
         String user = pref.getString("username", null);
-        String nightId = getIntent().getStringExtra("nightID");
+        String nightId = getIntent().getStringExtra("nightId");
 
         Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Night> nights = realm.where(Night.class).equalTo("Id", nightId).findAll();
-        Night currentNight = (Night) nights.get(0);
+        final Night currentNight = realm.where(Night.class).equalTo("Id", nightId).findFirst();
         final RealmResults<Event> events = currentNight.getEvents();
 
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +62,15 @@ public class CurrentNight extends AppCompatActivity {
                 }
             }
         });
+        
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
+                startActivity(intent);
+            }
+        });
+
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {

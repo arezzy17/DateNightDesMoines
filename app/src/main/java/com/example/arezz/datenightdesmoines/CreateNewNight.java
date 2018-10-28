@@ -1,5 +1,6 @@
 package com.example.arezz.datenightdesmoines;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,18 +12,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.UUID;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class CreateNewNight extends AppCompatActivity implements IYelpId {
     Button addButton;
+    Button nextButton;
+    private ImageButton homeButton;
+
     Night currentNight;
     TabLayout.Tab currentTab;
     String currentId;
+    String currentName;
 
     public String getYelpId(){
         return currentId;
@@ -31,9 +38,42 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
         currentId = id;
     }
 
+
+    public String getYelpName(){
+        return currentName;
+    }
+    public void setYelpName(String id){
+        currentName = id;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Realm realm = Realm.getDefaultInstance();
+        if(getIntent().getStringExtra("nightId") != null && getIntent().getStringExtra("nightId").length() > 0){
+            String nightId = getIntent().getStringExtra("nightId");
+            currentNight = realm.where(Night.class).equalTo("Id", nightId).findFirst();
+        }
+        else{
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            final String user = pref.getString("username", "");
+            if (user.equals("")) {
+                Toast.makeText(getBaseContext(), "Error accessing user", Toast.LENGTH_SHORT).show();
+            }
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    currentNight = new Night();
+                    currentNight.setUsername(user);
+                    currentNight.setId(UUID.randomUUID().toString());
+                    realm.copyToRealm(currentNight);
+                }
+            });
+        }
+
+
 
         setContentView(R.layout.activity_create_new_night);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,28 +110,30 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
         });
 
         addButton = (Button)findViewById(R.id.create_new_add_button);
+        nextButton =(Button)findViewById(R.id.create_new_next_button);
 
+        homeButton = (ImageButton) findViewById(R.id.home_button);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), TopRatedActivity.class);
+                startActivity(intent);
+            }
+        });
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Realm realm = Realm.getDefaultInstance();
-                if(currentNight == null) {
-                    SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                    String user = pref.getString("username", "");
-                    if (user.equals("")) {
-                        Toast.makeText(getBaseContext(), "Error accessing user", Toast.LENGTH_SHORT);
-                    }
-                    currentNight = new Night();
-                    currentNight.setUsername(user);
-                    currentNight.setId(UUID.randomUUID().toString());
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            realm.copyToRealm(currentNight);
-                        }
-                    });
 
+                RealmResults<Event> curEvents = realm.where(Night.class).equalTo("Id",currentNight.getId()).findFirst().getEvents();
+                for (Event e:curEvents) {
+                    if(currentId != null && e.getYelpID().equals(currentId)){
+                        Toast.makeText(getBaseContext(), "You already had " + currentName + " in your night!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
+
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
@@ -99,26 +141,34 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
                         newEvent.setNight(realm.where(Night.class).equalTo("Id",currentNight.getId()).findFirst());
 
                         if(currentTab.getText().toString().toLowerCase().equals("food")){
-                            newEvent.setEventType("food");
+                            newEvent.setEventType("Food");
                         }
                         else if(currentTab.getText().toString().toLowerCase().equals("entertainment")){
-                            newEvent.setEventType("entertainment");
+                            newEvent.setEventType("Entertainment");
                         }
                         else {
-                            newEvent.setEventType("drinks");
+                            newEvent.setEventType("Drinks");
                         }
 
                         newEvent.setYelpID(currentId);
-
+                        newEvent.setEventName(currentName);
 
                         realm.copyToRealm(newEvent);
-
-                        finish();
                     }
                 });
+
+                Toast.makeText(getBaseContext(), "Successfully added " + currentName + " to your night!", Toast.LENGTH_SHORT).show();
             }
         });
 
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(getBaseContext(), ConfirmNightActivity.class );
+               intent.putExtra("nightId", currentNight.getId());
+               startActivity(intent);
+            }
+        });
 
     }
 
