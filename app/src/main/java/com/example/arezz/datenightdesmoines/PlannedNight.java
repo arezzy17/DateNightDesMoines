@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import java.io.Serializable;
@@ -35,6 +36,7 @@ public class PlannedNight extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planned_night);
         final SharedPreferences pref = getBaseContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        String user = pref.getString("username", "");
 
         planned_night_list = (RecyclerView) findViewById(R.id.list_plannedNights);
         titleView = (TextView) findViewById(R.id.title_view_planned);
@@ -50,7 +52,17 @@ public class PlannedNight extends AppCompatActivity {
         });
 
         Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Night> plannedNights = realm.where(Night.class).findAll();
+        Date date = new Date();
+        final RealmResults<Night> plannedN = realm.where(Night.class).equalTo("Username",user).findAll();
+        ArrayList<Night> plannedNightsTemp = new ArrayList<Night>();
+        for (Night n: plannedN) {
+            if(n.getDate() != null && ((n.getDate().after(new Date())) ||
+                    (n.getDate().getMonth() == date.getMonth() && n.getDate().getYear() == date.getYear()
+                    && n.getDate().getDay() == date.getDay()))){
+                plannedNightsTemp.add(n);
+            }
+        }
+        final ArrayList<Night> plannedNights = (ArrayList<Night>) plannedNightsTemp.clone();
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override

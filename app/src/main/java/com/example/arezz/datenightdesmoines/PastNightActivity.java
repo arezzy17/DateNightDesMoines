@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -40,9 +41,16 @@ public class PastNightActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        String user = pref.getString("username", "");
         Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Night> pastNights = realm.where(Night.class).findAll();
+        final RealmResults<Night> pastN = realm.where(Night.class).equalTo("Username",user).findAll();
+        ArrayList<Night> pastNightsTemp = new ArrayList<Night>();
+        for (Night n: pastN) {
+            if(n.getDate() != null && n.getDate().before(new Date())){
+                pastNightsTemp.add(n);
+            }
+        }
+        final ArrayList<Night> pastNights = (ArrayList<Night>) pastNightsTemp.clone();
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
@@ -52,10 +60,6 @@ public class PastNightActivity extends AppCompatActivity {
                 //intent.putExtra("navigated_from", "Past Nights");
                 DateDetailPopup datePopup = new DateDetailPopup();
                 datePopup.showPopup(rating, popup, pref, "Past Nights");
-//                Intent intent = new Intent(view.getContext(), LoginActivity.class);
-//                intent.putExtra("navigate_to", "Top Rated");
-//                intent.putExtra("rating",rating.getId());
-//                startActivity(intent);
             }
         };
 

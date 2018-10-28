@@ -8,16 +8,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.RealmResults;
 
 public class PlannedNightAdapter extends RecyclerView.Adapter<PlannedNightAdapter.PlannedNightViewHolder>{
     private Context context;
-    private RealmResults<Night> nights;
+    private ArrayList<Night> nights;
     private RecyclerViewClickListener mListener;
 
-    public PlannedNightAdapter(Context context, RealmResults<Night> dataSet, RecyclerViewClickListener
+    public PlannedNightAdapter(Context context, ArrayList<Night> dataSet, RecyclerViewClickListener
             clickListener) {
         this.context = context;
         this.nights = dataSet;
