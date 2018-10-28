@@ -64,9 +64,6 @@ public class TopRatedActivity extends AppCompatActivity {
         Realm realm = Realm.getDefaultInstance();
         final RealmResults<Night> topRatedNights = realm.where(Night.class)
                 .greaterThan("rating", 2).findAll();
-        if(topRatedNights.size() == 0) {
-            populateTopRated();
-        }
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
@@ -140,87 +137,4 @@ public class TopRatedActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void populateTopRated(){
-        Realm realm= Realm.getDefaultInstance();
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                Event event1 = new Event();
-                Date time1 =  new Date();
-
-                Night night1 = new Night();
-                night1.setId("1");
-                night1.setUsername("martymartin16");
-                night1.setDateName("Fun Times");
-                night1.setDate(new Date(12,13,2014));
-                night1.setRating(5);
-                realm.copyToRealm(night1);
-
-                event1.setEventType("Dinner");
-                event1.setNight(realm.where(Night.class).equalTo("Id", "1").findFirst());
-                realm.copyToRealm(event1);
-
-                Night night2 = new Night();
-                Date date2 =  new Date();
-                date2.setMonth(12);
-                date2.setDate(13);
-                date2.setYear(2014);
-                night2.setId("2");
-                night2.setUsername("draketherapper");
-                night2.setDateName("Drake at Drake");
-                night2.setDate(date2);
-                night2.setRating(3);
-                realm.copyToRealm(night2);
-            }
-        });
-    }
-
-//    private void showPopup(final Night rating) {
-//        popup.setContentView(R.layout.top_rated_details_popup);
-//        Realm realm = Realm.getDefaultInstance();
-//        RealmResults<Event> events = rating.getEvents();
-//
-//        TextView dateName = (TextView) popup.findViewById(R.id.date_name);
-//        dateName.setText(rating.getDateName());
-//
-//        ImageView datePicture = (ImageView) popup.findViewById(R.id.date_picture);
-//        if(rating.getImageId() != null) {
-//            Image image = realm.where(Image.class).equalTo("id", rating.getImageId()).findFirst();
-//            Bitmap bmp = BitmapFactory.decodeByteArray(image.getImageBitmap(),0,image.getId().length());
-//            datePicture.setImageBitmap(bmp);
-//        }
-//
-//        RatingBar dateRating = (RatingBar) popup.findViewById(R.id.date_rating);
-//        dateRating.setIsIndicator(true);
-//        dateRating.setRating(rating.getRating());
-//
-//        eventList = (RecyclerView) popup.findViewById(R.id.event_list);
-//        eventLayoutManager = new LinearLayoutManager(this);
-//        eventList.setLayoutManager(eventLayoutManager);
-//
-//        eventAdapter = new EventTopRatedAdapter(this, events);
-//        eventList.setAdapter(eventAdapter);
-//
-//        Button selectButton = (Button) popup.findViewById(R.id.select_button);
-//        selectButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                popup.dismiss();
-//                Intent intent = new Intent(getBaseContext(), ConfirmNightActivity.class);
-//                intent.putExtra("nightId", rating.getId());
-//                startActivity(intent);
-//            }
-//        });
-//
-//        Button closeButton = (Button) popup.findViewById(R.id.close_button);
-//        closeButton.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                popup.dismiss();
-//            }
-//        });
-//
-//        popup.show();
-//    }
 }

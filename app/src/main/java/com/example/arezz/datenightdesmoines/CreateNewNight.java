@@ -128,7 +128,7 @@ public class CreateNewNight extends AppCompatActivity implements IYelpId {
 
                 RealmResults<Event> curEvents = realm.where(Night.class).equalTo("Id",currentNight.getId()).findFirst().getEvents();
                 for (Event e:curEvents) {
-                    if(e.getYelpID().equals(currentId)){
+                    if(currentId != null && e.getYelpID().equals(currentId)){
                         Toast.makeText(getBaseContext(), "You already had " + currentName + " in your night!", Toast.LENGTH_SHORT).show();
                         return;
                     }
