@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="112dp"
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/event_type_current"
-        android:layout_width="122dp"
-        android:layout_height="41dp"
+        android:layout_width="145dp"
+        android:layout_height="87dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -26,8 +26,8 @@
 
     <TextView
         android:id="@+id/event_name_current"
-        android:layout_width="224dp"
-        android:layout_height="41dp"
+        android:layout_width="199dp"
+        android:layout_height="87dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"

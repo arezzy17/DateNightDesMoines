@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="65dp">
+    android:layout_height="112dp">
 
     <TextView
         android:id="@+id/event_name_confirm"
-        android:layout_width="240dp"
-        android:layout_height="65dp"
+        android:layout_width="193dp"
+        android:layout_height="80dp"
         android:layout_marginRight="20dp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="left|center"
@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/event_type_confirm"
         android:layout_width="0dp"
-        android:layout_height="65dp"
+        android:layout_height="75dp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="left|center"
         android:textColor="@color/colorDarkFont"
