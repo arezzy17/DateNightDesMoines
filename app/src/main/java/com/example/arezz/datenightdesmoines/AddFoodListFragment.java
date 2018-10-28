@@ -44,7 +44,7 @@ public class AddFoodListFragment extends Fragment implements IYelpList{
     public AddFoodListFragment() {
         // Required empty public constructor
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,7 +117,7 @@ public class AddFoodListFragment extends Fragment implements IYelpList{
     public void SubmitRequest(String[] params, String[] paramVals){
         RequestQueue queue = MySingleton.getInstance(getContext().getApplicationContext()).getRequestQueue();
 
-        JsonObjectRequest myReq = MySingleton.getInstance(getContext()).GetJsonRequestFromUrl("https://api.yelp.com/v3/businesses/search","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx","Des Moines, IA", params, paramVals, this );
+        JsonObjectRequest myReq = MySingleton.getInstance(getContext()).GetJsonRequestFromUrl("https://api.yelp.com/v3/businesses/search",getString(R.string.bearer_key),"Des Moines, IA", params, paramVals, this );
         MySingleton.getInstance(getContext()).addToRequestQueue(myReq);
     }
 

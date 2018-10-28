@@ -87,7 +87,7 @@ public class ConfirmNightActivity extends AppCompatActivity implements IYelpList
             public void onClick(View view, int position) {
                 Event event = (Event) events.get(position);
                 RequestQueue queue = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
-                JsonObjectRequest myReq = MySingleton.getInstance(getBaseContext()).GetJsonRequestYelpId("https://api.yelp.com/v3/businesses/","Bearer baYflpcDgbIhpcxDzfCTVY-8-MNrTaQKs-Xi7TkguApK9CW1ezFdxhlNAS754U7dQEou-gJzbZkP54dNIrFO_70lrO1cIcNS0ziaZBqslfvysRtzBZ04M-LFYt23W3Yx",event.getYelpID(), thisAct);
+                JsonObjectRequest myReq = MySingleton.getInstance(getBaseContext()).GetJsonRequestYelpId("https://api.yelp.com/v3/businesses/",getString(R.string.bearer_key),event.getYelpID(), thisAct);
                 MySingleton.getInstance(getBaseContext()).addToRequestQueue(myReq);
             }
         };
